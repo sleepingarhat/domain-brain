@@ -1,0 +1,31 @@
+name: Ingest Tianxi Data
+
+on:
+  schedule:
+    - cron: "30 17 * * *"
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e .
+      - name: tianxi-database
+        run: python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 5
+      - name: tianxi-api
+        run: python -m ingestion.cli --source tianxi-api
+      - name: Upload runs/chunks
+        uses: actions/upload-artifact@v4
+        with:
+          name: tianxi-data-${{ github.run_id }}
+          path: |
+            ingestion/runs/
+            ingestion/chunks/
+            ingestion/metrics/
+          if-no-files-found: warn
+          retention-days: 14
