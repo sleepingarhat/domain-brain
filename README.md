@@ -3,8 +3,29 @@
 **可產品化的領域 AI 大腦**  
 記憶演化 · 風格克隆 · 知識餵入 · 社交媒體半自動運營
 
-> MVP 目標：**天喜腦（TianxiBrain）** — 以香港賽馬為第一領域，結合 `tianxi-database` + `tianxi-backend`（TX-Oracle）的高質量數據與預測能力。  
-> Dify 知識庫名稱：**TianxiBrain**
+> MVP：**天喜腦（TianxiBrain）** — 香港賽馬第一領域，結合 `tianxi-database` + `tianxi-backend`（TX-Oracle）。  
+> **方案 B（現行主路徑）**：知識管線 + **本地 BM25 檢索**，不依賴 Dify Cloud AI Credits。
+
+---
+
+## 30 秒上手（方案 B）
+
+```bash
+pip install -e .
+
+# 餵知識
+python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 5
+python -m ingestion.cli --source tianxi-api
+
+# 建本地索引
+python -m brain.cli build
+
+# 查詢天喜腦
+python -m brain.cli query "7月15日跑馬地賽果"
+python -m brain.cli query "TX-Oracle 預測" --top-k 3
+```
+
+說明：[`docs/brain-local.md`](docs/brain-local.md)
 
 ---
 
@@ -12,102 +33,43 @@
 
 | 能力 | 說明 |
 |------|------|
-| **記憶演化** | Mem0 長期記憶 + 賽後反思閉環（預測 vs 實績 → 策略更新） |
-| **風格克隆** | 從 ebook / blogger / 既有文案學習寫作風格，用於內容生成 |
-| **知識餵入** | 統一 Knowledge Ingestion Layer（人手、API、數據庫、定期爬取） |
-| **半自動運營** | 社交媒體（先 Weibo）內容生成與排程 |
+| **知識餵入** | Source Registry（人手／API／數據庫／排程）+ Run 記錄 + Health |
+| **本地檢索** | 純 Python BM25（方案 B，零 embedding 費用） |
+| **記憶演化** | Mem0 接駁骨架（可選） |
+| **風格克隆** | 規劃中 |
+| **半自動運營** | 規劃中 |
 
 ---
 
-## 架構總覽
+## 架構
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Knowledge Ingestion Layer                 │
-│  Source Registry  ·  Crawl Runs  ·  Health Metrics          │
-│  (web / rss / api / database / manual)                      │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Dify「TianxiBrain」 +  Mem0 Memory Layer                    │
-│  (RAG + 長期記憶演化)                                        │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-           ┌───────────────┼───────────────┐
-           ▼               ▼               ▼
-    Reflection Agent  TX-Oracle      Style / Content
-    (賽後反思)         (預測引擎)      (風格克隆產出)
+Source Registry → ingestion CLI → chunks/
+                                      ↓
+                              brain.cli build
+                                      ↓
+                              BM25 本地索引
+                                      ↓
+                              brain.cli query
+
+（可選）Dify / Mem0 — 有需要再接，非必需
 ```
 
 ---
 
-## Quick Start
-
-```bash
-pip install -e .
-
-# 列出已註冊來源
-python -m ingestion.cli --list
-
-# 跑結構化賽果（tianxi-database）
-python -m ingestion.cli --source tianxi-database --lookback-days 14 --max-days 5
-
-# 跑預測 API
-python -m ingestion.cli --source tianxi-api
-
-# 推入 Dify 天喜腦知識庫
-python -m ingestion.cli --source tianxi-database --push-dify
-
-# 查看健康指標
-python -m ingestion.cli --health tianxi-database
-```
-
-輸出：
-- `ingestion/runs/<run_id>.json` — Crawl Run
-- `ingestion/chunks/<run_id>.json` — 知識片段
-- `ingestion/metrics/<source_id>.json` — Health Metrics
-
----
-
-## 已實作組件
+## 已實作
 
 | 組件 | 路徑 | 狀態 |
 |------|------|------|
-| Source Registry + Schema | `schemas/`, `ingestion/sources/` | ✅ |
-| Crawl Run 記錄 | `ingestion/runs/` | ✅ |
-| Health Metrics 聚合 | `ingestion/metrics.py` | ✅ |
-| tianxi-database connector | `connectors/tianxi_db.py` | ✅ 可跑 |
-| tianxi-backend API connector | `connectors/tianxi_api.py` | ✅ |
-| Dify push（TianxiBrain） | `connectors/dify_push.py` | ✅ |
-| Mem0 push skeleton | `connectors/mem0_push.py` | ✅ |
-| Reflection Agent skeleton | `agents/reflection_agent.py` | ✅ |
-| 排程 GHA | `.github/workflows/ingest-tianxi.yml` | ✅ |
-| web_crawl (Crawl4AI) | — | 🔜 下一階段 |
-| Mem0 正式寫入 | — | 🔜 接 key 後啟用 |
-| 完整 CrewAI multi-agent | — | 🔜 |
-
----
-
-## 技術棧（MVP）
-
-| 層級 | 選擇 |
-|------|------|
-| 結構化數據 | tianxi-database + tianxi-backend |
-| Web 爬蟲（規劃） | Crawl4AI / Firecrawl |
-| 知識庫 | Dify Knowledge API（TianxiBrain） |
-| 長期記憶 | Mem0 |
-| Agent | Reflection skeleton → CrewAI |
-| 調度 | GitHub Actions |
-
----
-
-## 市場定位
-
-- 不是再多一個通用爬蟲 / RAG 框架
-- 而是**可運營、有記憶、有數據護城河的垂直領域大腦**
-- 第一垂直：香港賽馬 → 產品名 **天喜腦（TianxiBrain）**
-- 知識來源管理層（清晰列表 + 健康指標 + 選擇性增刪）是產品差異化重點
+| Source Registry | `ingestion/sources/` | ✅ |
+| tianxi-database connector | `connectors/tianxi_db.py` | ✅ |
+| tianxi-api connector | `connectors/tianxi_api.py` | ✅ |
+| Health metrics | `ingestion/metrics.py` | ✅ |
+| **本地天喜腦 BM25** | `brain/` | ✅ |
+| Dify push（可選） | `connectors/dify_push.py` | ✅ |
+| Mem0 push（可選） | `connectors/mem0_push.py` | ✅ |
+| Reflection skeleton | `agents/reflection_agent.py` | ✅ |
+| GHA 排程 | `.github/workflows/ingest-tianxi.yml` | ✅ |
 
 ---
 
