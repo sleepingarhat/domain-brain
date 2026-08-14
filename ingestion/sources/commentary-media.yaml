@@ -1,0 +1,117 @@
+# 香港賽馬評論／媒體來源 registry
+# 注意：多數報章有版權與反爬／付費牆。預設只啟用較公開、可禮貌抓取的種子頁。
+# 要啟用某源：把 enabled 改 true，並補齊可公開訪問的 seed_urls。
+
+- id: hkjc-news
+  name: 香港賽馬會公開賽馬資訊
+  type: web_crawl
+  enabled: true
+  url: https://racing.hkjc.com/
+  priority: 2
+  domain_tags: [horse_racing, official, hkjc]
+  config:
+    delay_seconds: 1.5
+    max_chars: 12000
+    seed_urls:
+      - https://racing.hkjc.com/racing/information/chinese/Racing/LocalResults.aspx
+      - https://racing.hkjc.com/racing/information/chinese/Racing/RaceCardList.aspx
+  notes: 官方公開頁；以資料／賽果為主，非個人專欄。
+
+- id: idol-horse
+  name: Idol Horse 賽馬專題／專欄
+  type: web_crawl
+  enabled: true
+  url: https://idolhorse.com/
+  priority: 3
+  domain_tags: [horse_racing, commentary, idol-horse]
+  config:
+    delay_seconds: 2.0
+    max_chars: 14000
+    seed_urls:
+      - https://idolhorse.com/
+      - https://idolhorse.com/zh-hant/
+  notes: 深度專題適合入知識庫；請遵守站方條款，勿高頻全站鏡像。
+
+- id: the-standard-inside-track
+  name: The Standard INSIDE TRACK
+  type: web_crawl
+  enabled: true
+  url: https://www.thestandard.com.hk/
+  priority: 3
+  domain_tags: [horse_racing, commentary, english]
+  config:
+    delay_seconds: 2.0
+    max_chars: 12000
+    seed_urls:
+      - https://www.thestandard.com.hk/hong-kong-racing
+  notes: Michael Cox 等分析欄；可能有付費牆，失敗會記 partial。
+
+- id: stheadline-racing-tips
+  name: 星島／頭條 賽馬名家專欄
+  type: web_crawl
+  enabled: false
+  url: https://www.stheadline.com/racing-tips
+  priority: 4
+  domain_tags: [horse_racing, commentary, stheadline]
+  config:
+    delay_seconds: 2.5
+    seed_urls:
+      - https://www.stheadline.com/racing-tips
+  notes: 預設關閉。專欄版權／反爬較嚴；需人工確認可公開種子後再開。
+
+- id: hkdn-racing
+  name: HKDN Racing 專家心水
+  type: web_crawl
+  enabled: false
+  url: https://hkdnform.com/zh/tips
+  priority: 4
+  domain_tags: [horse_racing, tips, hkdn]
+  config:
+    delay_seconds: 2.0
+    seed_urls:
+      - https://hkdnform.com/zh/tips
+  notes: 預設關閉。前端動態頁多，靜態抓取可能不足，需後續強化。
+
+- id: oriental-racing
+  name: 東方日報馬經
+  type: web_crawl
+  enabled: false
+  url: https://orientaldaily.on.cc/
+  priority: 5
+  domain_tags: [horse_racing, newspaper]
+  config:
+    seed_urls: []
+  notes: 預設關閉。版權與付費／登入限制；不建議自動全站爬。
+
+- id: mingpao-racing
+  name: 明報馬經
+  type: web_crawl
+  enabled: false
+  url: https://www.mingpao.com/
+  priority: 5
+  domain_tags: [horse_racing, newspaper]
+  config:
+    seed_urls: []
+  notes: 預設關閉。付費牆常見。
+
+- id: singtao-racing
+  name: 星島賽馬版
+  type: web_crawl
+  enabled: false
+  url: https://www.singtao.ca/
+  priority: 5
+  domain_tags: [horse_racing, newspaper]
+  config:
+    seed_urls: []
+  notes: 預設關閉。請改用已核實公開 URL 後再開。
+
+- id: independent-racing-papers
+  name: 獨立馬報（太陽／專業馬訊等）
+  type: web_crawl
+  enabled: false
+  url: null
+  priority: 6
+  domain_tags: [horse_racing, newspaper]
+  config:
+    seed_urls: []
+  notes: 預設關閉。紙本／付費為主，不適合無授權自動爬取。
