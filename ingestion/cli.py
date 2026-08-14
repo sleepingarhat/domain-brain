@@ -4,7 +4,6 @@ Examples:
   python -m ingestion.cli --list
   python -m ingestion.cli --source tianxi-database
   python -m ingestion.cli --source tianxi-api
-  python -m ingestion.cli --source tianxi-database --push-dify
   python -m ingestion.cli --health tianxi-database
 """
 
@@ -25,22 +24,6 @@ SOURCES_DIR = ROOT / "ingestion" / "sources"
 RUNS_DIR = ROOT / "ingestion" / "runs"
 CHUNKS_DIR = ROOT / "ingestion" / "chunks"
 METRICS_DIR = ROOT / "ingestion" / "metrics"
-
-
-def _maybe_push_dify(chunks: list, enabled: bool) -> None:
-    if not enabled:
-        return
-    if not chunks:
-        print("push-dify      : skipped (no chunks)")
-        return
-    try:
-        from connectors.dify_push import push_chunks
-
-        results = push_chunks(chunks, name_prefix="TianxiBrain")
-        print(f"push-dify      : pushed {len(results)} document(s) → TianxiBrain")
-    except Exception as e:  # noqa: BLE001
-        print(f"push-dify      : FAILED — {e}")
-        print("  Check DIFY_API_BASE / DIFY_API_KEY / DIFY_DATASET_ID")
 
 
 def _run_source(source, args) -> int:
@@ -81,8 +64,6 @@ def _run_source(source, args) -> int:
     print(f"health saved  : {health_path}")
     if run.error_message:
         print(f"error         : {run.error_message}")
-
-    _maybe_push_dify(chunks, args.push_dify)
     return 0 if run.status.value in ("success", "partial") else 1
 
 
@@ -99,11 +80,6 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--lookback-days", type=int, default=10)
     parser.add_argument("--max-days", type=int, default=5)
-    parser.add_argument(
-        "--push-dify",
-        action="store_true",
-        help="After ingest, push chunks into Dify knowledge base (TianxiBrain)",
-    )
     args = parser.parse_args(argv)
 
     sources = load_sources_from_dir(args.sources_dir)
