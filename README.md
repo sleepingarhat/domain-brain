@@ -9,6 +9,33 @@
 
 ---
 
+## 監察（GitHub Actions）
+
+同 `tianxi-database` 一樣，用 workflow badge 睇通過／失敗：
+
+[![Ingest Tianxi Data](https://github.com/sleepingarhat/domain-brain/actions/workflows/01-ingest-tianxi-data.yml/badge.svg)](https://github.com/sleepingarhat/domain-brain/actions/workflows/01-ingest-tianxi-data.yml)
+[![Crawl Free Commentary](https://github.com/sleepingarhat/domain-brain/actions/workflows/02-crawl-commentary.yml/badge.svg)](https://github.com/sleepingarhat/domain-brain/actions/workflows/02-crawl-commentary.yml)
+[![Build Brain Index](https://github.com/sleepingarhat/domain-brain/actions/workflows/03-build-brain-index.yml/badge.svg)](https://github.com/sleepingarhat/domain-brain/actions/workflows/03-build-brain-index.yml)
+
+| Workflow | 做咩 | 排程（HKT） |
+|----------|------|-------------|
+| **Ingest Tianxi Data** | `tianxi-database` + `tianxi-api` | 每日 01:30 |
+| **Crawl Free Commentary** | HKJC / Idol Horse / The Standard | 每日 01:40 |
+| **Build Brain Index** | `brain.cli build` | 每日 01:50 或上游完成後 |
+
+手動跑：Repo → **Actions** → 揀對應 workflow → **Run workflow**  
+詳細 run 記錄、log、artefacts 都喺 Actions 頁。
+
+本機睇來源健康：
+
+```bash
+python -m ingestion.cli --list
+python -m ingestion.cli --health tianxi-database
+python -m ingestion.cli --health hkjc-news
+```
+
+---
+
 ## 30 秒跑通
 
 ```bash
@@ -16,42 +43,20 @@ git clone https://github.com/sleepingarhat/domain-brain.git
 cd domain-brain
 pip install -e .
 
-# 1) 餵知識（賽果會產出中文場次摘要）
 python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 5
 python -m ingestion.cli --source tianxi-api
-
-# 2) 建本地索引
 python -m brain.cli build
-
-# 3) 查詢
 python -m brain.cli query "7月15日跑馬地第1場"
-python -m brain.cli query "架勢奇爸" --top-k 3
-
-# 4) 可選：自備 API key 生成精簡答覆
-# export OPENAI_API_KEY=...
-# export OPENAI_BASE_URL=https://api.openai.com/v1   # 或 Groq 等兼容接口
-# export OPENAI_MODEL=gpt-4o-mini
-python -m brain.cli query "7月15日第一場誰贏" --answer
 ```
 
 說明：[docs/brain-local.md](docs/brain-local.md) · [docs/knowledge-ingestion.md](docs/knowledge-ingestion.md)
 
 ---
 
-## 每日自動（GitHub Actions）
-
-Workflow：`.github/workflows/ingest-tianxi.yml`
-
-- 排程：每天 01:30 HKT（`30 17 * * *` UTC）
-- 亦可手動 **Actions → TianxiBrain daily ingest + index → Run workflow**
-- 步驟：`tianxi-database` → `tianxi-api` → `brain.cli build` → 上傳 artefacts（14 日）
-
----
-
 ## 架構
 
 ```text
-Source Registry → ingestion CLI → 中文 chunks
+Source Registry → ingestion / crawl → chunks
                                       ↓
                               brain.cli build（BM25）
                                       ↓
@@ -60,35 +65,16 @@ Source Registry → ingestion CLI → 中文 chunks
 
 ---
 
-## 核心能力
-
-| 能力 | 現狀 |
-|------|------|
-| 知識餵入 + Health | ✅ |
-| 賽果中文摘要（按日／按場） | ✅ |
-| TX-Oracle 中文預測摘要 | ✅ |
-| 本地 BM25 檢索 | ✅ |
-| 每日 GHA ingest + build | ✅ |
-| 可選 LLM 答覆（`--answer`） | ✅ 需自備 key |
-| Mem0 / 反思 Agent | 骨架（可選） |
-
----
-
 ## 已註冊來源
 
-| id | 類型 | 說明 |
+| id | 自動 | 說明 |
 |----|------|------|
-| `tianxi-database` | database | raw CSV 賽果 |
-| `tianxi-api` | api | `https://www.tianxi.racing` 預測 |
-
----
-
-## 設計原則
-
-1. 先免費跑通邏輯  
-2. 來源可列表、可監控、可增刪  
-3. tianxi 數據護城河優先  
-4. 更強檢索／模型日後可替換接入
+| `tianxi-database` | ✅ | 賽果 CSV |
+| `tianxi-api` | ✅ | TX-Oracle 預測 |
+| `hkjc-news` | ✅ | 馬會公開資訊／新聞 |
+| `idol-horse` | ✅ | Idol Horse 專題 |
+| `the-standard-inside-track` | ✅ | Standard 賽馬頁 |
+| 報章馬經等 | ❌ | 非免費穩定全文，registry 保留但關閉 |
 
 ---
 
