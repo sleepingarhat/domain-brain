@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sleepingarhat/domain-brain/schemas/crawl-run.schema.json",
+  "title": "CrawlRun",
+  "description": "Record of a single execution of a knowledge source",
+  "type": "object",
+  "required": ["run_id", "source_id", "started_at", "status"],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "description": "Unique run identifier"
+    },
+    "source_id": {
+      "type": "string",
+      "description": "References Source Registry id"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finished_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "failed", "skipped"]
+    },
+    "items_fetched": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "items_new": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "items_updated": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "items_skipped": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "error_message": {
+      "type": ["string", "null"]
+    },
+    "duration_seconds": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "content_hash": {
+      "type": ["string", "null"],
+      "description": "Hash of fetched content for change detection"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
