@@ -1,9 +1,10 @@
-# domain-brain
+# domain-brain · 天喜腦（TianxiBrain）
 
 **可產品化的領域 AI 大腦**  
 記憶演化 · 風格克隆 · 知識餵入 · 社交媒體半自動運營
 
-> MVP 目標：**馬神（Horse God）** — 以香港賽馬為第一領域，結合 `tianxi-database` + `tianxi-backend`（TX-Oracle）的高質量數據與預測能力。
+> MVP 目標：**天喜腦（TianxiBrain）** — 以香港賽馬為第一領域，結合 `tianxi-database` + `tianxi-backend`（TX-Oracle）的高質量數據與預測能力。  
+> Dify 知識庫名稱：**TianxiBrain**
 
 ---
 
@@ -29,7 +30,7 @@
                            │
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Dify Knowledge Base  +  Mem0 Memory Layer                   │
+│  Dify「TianxiBrain」 +  Mem0 Memory Layer                    │
 │  (RAG + 長期記憶演化)                                        │
 └──────────────────────────┬──────────────────────────────────┘
                            │
@@ -52,8 +53,11 @@ python -m ingestion.cli --list
 # 跑結構化賽果（tianxi-database）
 python -m ingestion.cli --source tianxi-database --lookback-days 14 --max-days 5
 
-# 跑預測 API（需先改 ingestion/sources/tianxi-api.yaml 的 base_url）
+# 跑預測 API
 python -m ingestion.cli --source tianxi-api
+
+# 推入 Dify 天喜腦知識庫
+python -m ingestion.cli --source tianxi-database --push-dify
 
 # 查看健康指標
 python -m ingestion.cli --health tianxi-database
@@ -74,8 +78,9 @@ python -m ingestion.cli --health tianxi-database
 | Crawl Run 記錄 | `ingestion/runs/` | ✅ |
 | Health Metrics 聚合 | `ingestion/metrics.py` | ✅ |
 | tianxi-database connector | `connectors/tianxi_db.py` | ✅ 可跑 |
-| tianxi-backend API connector | `connectors/tianxi_api.py` | ✅（需填 base_url） |
-| Dify push skeleton | `connectors/dify_push.py` | ✅ |
+| tianxi-backend API connector | `connectors/tianxi_api.py` | ✅ |
+| Dify push（TianxiBrain） | `connectors/dify_push.py` | ✅ |
+| Mem0 push skeleton | `connectors/mem0_push.py` | ✅ |
 | Reflection Agent skeleton | `agents/reflection_agent.py` | ✅ |
 | 排程 GHA | `.github/workflows/ingest-tianxi.yml` | ✅ |
 | web_crawl (Crawl4AI) | — | 🔜 下一階段 |
@@ -90,33 +95,10 @@ python -m ingestion.cli --health tianxi-database
 |------|------|
 | 結構化數據 | tianxi-database + tianxi-backend |
 | Web 爬蟲（規劃） | Crawl4AI / Firecrawl |
-| 知識庫 | Dify Knowledge API |
+| 知識庫 | Dify Knowledge API（TianxiBrain） |
 | 長期記憶 | Mem0 |
 | Agent | Reflection skeleton → CrewAI |
 | 調度 | GitHub Actions |
-
----
-
-## 資料夾結構
-
-```
-domain-brain/
-├── README.md
-├── pyproject.toml
-├── docs/knowledge-ingestion.md
-├── schemas/
-├── ingestion/
-│   ├── models.py / registry.py / metrics.py / cli.py
-│   ├── sources/          # 來源 YAML（可增刪啟停）
-│   ├── runs/ chunks/ metrics/
-├── connectors/
-│   ├── tianxi_db.py
-│   ├── tianxi_api.py
-│   └── dify_push.py
-├── agents/
-│   └── reflection_agent.py
-└── .github/workflows/ingest-tianxi.yml
-```
 
 ---
 
@@ -124,7 +106,7 @@ domain-brain/
 
 - 不是再多一個通用爬蟲 / RAG 框架
 - 而是**可運營、有記憶、有數據護城河的垂直領域大腦**
-- 第一垂直：香港賽馬（馬神）
+- 第一垂直：香港賽馬 → 產品名 **天喜腦（TianxiBrain）**
 - 知識來源管理層（清晰列表 + 健康指標 + 選擇性增刪）是產品差異化重點
 
 ---
