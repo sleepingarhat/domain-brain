@@ -1,0 +1,22 @@
+id: tianxi-api
+name: 天喜後端 TX-Oracle 預測 API
+type: api
+enabled: true
+url: null
+schedule: null
+domain_tags:
+  - horse_racing
+  - prediction
+  - tx-oracle
+priority: 1
+auth: null
+config:
+  # 請改成你實際的 Workers URL，例如：
+  # https://tianxi-backend.<subdomain>.workers.dev
+  base_url: "https://tianxi-backend.PLACEHOLDER.workers.dev"
+created_at: "2026-08-14T18:20:00+08:00"
+updated_at: "2026-08-14T18:20:00+08:00"
+notes: |
+  呼叫 tianxi-backend 的 /api/analyze/today-picks。
+  使用前請把 config.base_url 改成真實部署網址。
+  CLI: python -m ingestion.cli --source tianxi-api
