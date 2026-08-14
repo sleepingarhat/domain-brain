@@ -13,6 +13,13 @@ ingestion/runs/*.json
 ingestion/chunks/*.json
 ingestion/metrics/*.json
 
+# Local 天喜腦 index
+brain/index/
+
+# Secrets
+.env
+.env.*
+
 # IDE / OS
 .idea/
 .vscode/
