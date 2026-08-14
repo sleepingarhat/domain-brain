@@ -1,0 +1,40 @@
+name: Build Brain Index
+
+on:
+  schedule:
+    # 略晚於 ingest / crawl，等資料先入
+    - cron: "50 17 * * *"
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Ingest Tianxi Data", "Crawl Free Commentary"]
+    types: [completed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e .
+      # 重建前先拉一次最新數據（避免只得空 index）
+      - name: Refresh tianxi-database sample
+        run: python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 3
+        continue-on-error: true
+      - name: Refresh tianxi-api
+        run: python -m ingestion.cli --source tianxi-api
+        continue-on-error: true
+      - name: brain.cli build
+        run: python -m brain.cli build
+      - name: Upload index
+        uses: actions/upload-artifact@v4
+        with:
+          name: brain-index-${{ github.run_id }}
+          path: |
+            brain/index/
+            ingestion/chunks/
+            ingestion/metrics/
+          if-no-files-found: warn
+          retention-days: 14
