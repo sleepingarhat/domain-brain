@@ -1,0 +1,33 @@
+name: Crawl Free Commentary
+
+on:
+  schedule:
+    - cron: "40 17 * * *"
+  workflow_dispatch:
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e .
+      - name: hkjc-news
+        run: python -m ingestion.cli --source hkjc-news
+      - name: idol-horse
+        run: python -m ingestion.cli --source idol-horse
+      - name: the-standard-inside-track
+        run: python -m ingestion.cli --source the-standard-inside-track
+      - name: Upload runs/chunks
+        uses: actions/upload-artifact@v4
+        with:
+          name: commentary-${{ github.run_id }}
+          path: |
+            ingestion/runs/
+            ingestion/chunks/
+            ingestion/metrics/
+          if-no-files-found: warn
+          retention-days: 14
