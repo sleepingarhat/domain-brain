@@ -1,0 +1,31 @@
+# Example Source Registry entry — tianxi-database (P0)
+# 結構化賽馬數據，直接接駁，不重新爬 HKJC
+
+id: tianxi-database
+name: 天喜數據庫（HKJC 結構化賽果）
+type: database
+enabled: true
+url: https://raw.githubusercontent.com/sleepingarhat/tianxi-database/main
+schedule: null                    # 跟隨 tianxi 既有 GHA，或賽日後手動/事件觸發
+domain_tags:
+  - horse_racing
+  - structured
+  - hkjc
+priority: 1                       # 最高優先
+auth: null
+config:
+  base_raw_url: https://raw.githubusercontent.com/sleepingarhat/tianxi-database/main
+  key_artefacts:
+    - data/{year}/results_{date}.csv
+    - data/{year}/commentary_{date}.csv
+    - data/{year}/dividends_{date}.csv
+    - entries/today_entries.txt
+    - horses/profiles/horse_profiles.csv
+  encoding: utf-8-sig
+  incremental: true               # 只處理新日期 / 變更檔案
+created_at: "2026-08-14T18:00:00+08:00"
+updated_at: "2026-08-14T18:00:00+08:00"
+notes: |
+  直接消費 tianxi-database 的 CSV artefacts。
+  不重複實作 HKJC 爬蟲。
+  下游可再接 tianxi-backend API 取得 TX-Oracle 預測結果。
