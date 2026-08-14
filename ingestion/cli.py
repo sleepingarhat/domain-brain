@@ -3,7 +3,7 @@
 Examples:
   python -m ingestion.cli --list
   python -m ingestion.cli --source tianxi-database
-  python -m ingestion.cli --source tianxi-api
+  python -m ingestion.cli --source hkjc-news
   python -m ingestion.cli --health tianxi-database
 """
 
@@ -15,6 +15,7 @@ from pathlib import Path
 
 from connectors.tianxi_api import TianxiApiConnector
 from connectors.tianxi_db import TianxiDbConnector
+from connectors.web_static import WebStaticConnector
 from ingestion.metrics import compute_health, write_health
 from ingestion.models import SourceType
 from ingestion.registry import find_source_by_id, load_sources_from_dir
@@ -35,6 +36,9 @@ def _run_source(source, args) -> int:
         )
     elif source.type == SourceType.API and "tianxi" in source.id:
         connector = TianxiApiConnector(source)
+        run, chunks = connector.run()
+    elif source.type == SourceType.WEB_CRAWL:
+        connector = WebStaticConnector(source)
         run, chunks = connector.run()
     else:
         print(f"No connector implemented yet for type={source.type} id={source.id}")
@@ -90,7 +94,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         for s in sorted(sources, key=lambda x: (x.priority, x.id)):
             flag = "ON " if s.enabled else "OFF"
-            print(f"[{flag}] p{s.priority}  {s.id:24}  {s.type.value:10}  {s.name}")
+            print(f"[{flag}] p{s.priority}  {s.id:28}  {s.type.value:10}  {s.name}")
         return 0
 
     if args.health:
