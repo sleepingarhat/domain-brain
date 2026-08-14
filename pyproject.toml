@@ -1,7 +1,7 @@
 [project]
 name = "domain-brain"
-version = "0.1.0"
-description = "Productizable domain AI brain: memory evolution, style cloning, knowledge ingestion, semi-auto social ops"
+version = "0.2.0"
+description = "天喜腦 TianxiBrain — productizable domain AI brain"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -19,6 +19,7 @@ dev = ["ruff>=0.6"]
 
 [project.scripts]
 domain-brain-run = "ingestion.cli:main"
+tianxi-brain = "brain.cli:main"
 
 [build-system]
 requires = ["setuptools>=68"]
@@ -26,4 +27,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["ingestion*", "connectors*", "agents*"]
+include = ["ingestion*", "connectors*", "agents*", "brain*"]
