@@ -35,67 +35,65 @@
                            │
            ┌───────────────┼───────────────┐
            ▼               ▼               ▼
-    CrewAI Agents     TX-Oracle      Style / Content
-    (反思 / 分析)     (預測引擎)      (風格克隆產出)
+    Reflection Agent  TX-Oracle      Style / Content
+    (賽後反思)         (預測引擎)      (風格克隆產出)
 ```
 
-### 為什麼自建 Source Registry？
-
-目前頂級工具（Firecrawl ~160k★、Crawl4AI ~76k★、Dify Knowledge Pipeline）在「爬取」與「入庫」已經很強，但**來源級清晰列表 + 完整爬取記錄 + 有效性／穩定性指標 + 選擇性增刪啟停**仍然是大多數系統的缺口。  
-這層做成一級公民，直接對應未來產品前端的「知識來源管理」頁面，是產品差異化的關鍵。
-
 ---
 
-## Knowledge Ingestion Layer（核心設計）
-
-支援四種餵入方式，全部由同一套 **Source Registry** 管理：
-
-| 類型 | 說明 | MVP 優先 |
-|------|------|----------|
-| `database` | 直接接駁 `tianxi-database` CSV / `tianxi-backend` API | 最高 |
-| `api` | 外部 API（新聞、其他預測、自有服務） | 高 |
-| `web_crawl` | 定期自動爬取指定網站（Crawl4AI / Firecrawl） | 高 |
-| `rss` | RSS / Atom 訂閱 | 中 |
-| `manual` | 人手上傳文件 / 貼文 / 風格樣本 | 高 |
-
-每個來源都有：
-- 清晰設定（啟停、頻率、標籤、優先級）
-- 每次執行的 **Crawl Run** 記錄
-- 聚合 **Health Metrics**（成功率、新鮮度、連續失敗次數等）
-
-詳見 → [`docs/knowledge-ingestion.md`](docs/knowledge-ingestion.md)  
-Schema → [`schemas/source-registry.schema.json`](schemas/source-registry.schema.json)
-
----
-
-## Quick Start（第一個可跑的 connector）
+## Quick Start
 
 ```bash
-# 1. 安裝依賴
 pip install -e .
 
-# 2. 跑 tianxi-database 來源（最近數個賽馬日 results CSV）
+# 列出已註冊來源
+python -m ingestion.cli --list
+
+# 跑結構化賽果（tianxi-database）
 python -m ingestion.cli --source tianxi-database --lookback-days 14 --max-days 5
 
-# 輸出：
-# - ingestion/runs/<run_id>.json      ← Crawl Run 記錄
-# - ingestion/chunks/<run_id>.json    ← 知識 chunks（可再推入 Dify / Mem0）
+# 跑預測 API（需先改 ingestion/sources/tianxi-api.yaml 的 base_url）
+python -m ingestion.cli --source tianxi-api
+
+# 查看健康指標
+python -m ingestion.cli --health tianxi-database
 ```
 
-來源定義位於 `ingestion/sources/tianxi-database.yaml`，可直接增刪改。
+輸出：
+- `ingestion/runs/<run_id>.json` — Crawl Run
+- `ingestion/chunks/<run_id>.json` — 知識片段
+- `ingestion/metrics/<source_id>.json` — Health Metrics
+
+---
+
+## 已實作組件
+
+| 組件 | 路徑 | 狀態 |
+|------|------|------|
+| Source Registry + Schema | `schemas/`, `ingestion/sources/` | ✅ |
+| Crawl Run 記錄 | `ingestion/runs/` | ✅ |
+| Health Metrics 聚合 | `ingestion/metrics.py` | ✅ |
+| tianxi-database connector | `connectors/tianxi_db.py` | ✅ 可跑 |
+| tianxi-backend API connector | `connectors/tianxi_api.py` | ✅（需填 base_url） |
+| Dify push skeleton | `connectors/dify_push.py` | ✅ |
+| Reflection Agent skeleton | `agents/reflection_agent.py` | ✅ |
+| 排程 GHA | `.github/workflows/ingest-tianxi.yml` | ✅ |
+| web_crawl (Crawl4AI) | — | 🔜 下一階段 |
+| Mem0 正式寫入 | — | 🔜 接 key 後啟用 |
+| 完整 CrewAI multi-agent | — | 🔜 |
 
 ---
 
 ## 技術棧（MVP）
 
-| 層級 | 選擇 | 備註 |
-|------|------|------|
-| 結構化賽馬數據 | tianxi-database + tianxi-backend | 已有生產級管道，直接接駁 |
-| Web 爬取引擎 | Crawl4AI（自托管優先）或 Firecrawl | 2026 頂級 LLM-ready crawler |
-| 知識庫 / RAG | Dify（Knowledge Pipeline） | 視覺化 + API |
-| 長期記憶 | Mem0 | 記憶演化核心 |
-| 多 Agent | CrewAI | 反思、內容、分析角色 |
-| 調度 | GitHub Actions / Cloudflare Cron | 與 tianxi 同一風格 |
+| 層級 | 選擇 |
+|------|------|
+| 結構化數據 | tianxi-database + tianxi-backend |
+| Web 爬蟲（規劃） | Crawl4AI / Firecrawl |
+| 知識庫 | Dify Knowledge API |
+| 長期記憶 | Mem0 |
+| Agent | Reflection skeleton → CrewAI |
+| 調度 | GitHub Actions |
 
 ---
 
@@ -105,48 +103,29 @@ python -m ingestion.cli --source tianxi-database --lookback-days 14 --max-days 5
 domain-brain/
 ├── README.md
 ├── pyproject.toml
-├── docs/
-│   └── knowledge-ingestion.md
+├── docs/knowledge-ingestion.md
 ├── schemas/
-│   ├── source-registry.schema.json
-│   └── crawl-run.schema.json
 ├── ingestion/
-│   ├── models.py           # Source / CrawlRun / HealthMetrics
-│   ├── registry.py         # YAML Source Registry loader
-│   ├── cli.py              # 執行入口
-│   ├── sources/            # 已啟用的來源定義
-│   ├── runs/               # 執行記錄（自動產生）
-│   └── chunks/             # 產出的知識片段（自動產生）
+│   ├── models.py / registry.py / metrics.py / cli.py
+│   ├── sources/          # 來源 YAML（可增刪啟停）
+│   ├── runs/ chunks/ metrics/
 ├── connectors/
-│   └── tianxi_db.py        # tianxi-database connector（已實作）
-└── examples/
-    └── sources/
-        └── tianxi-database.example.yaml
+│   ├── tianxi_db.py
+│   ├── tianxi_api.py
+│   └── dify_push.py
+├── agents/
+│   └── reflection_agent.py
+└── .github/workflows/ingest-tianxi.yml
 ```
 
 ---
 
-## 市場定位（簡述）
+## 市場定位
 
-- **不是**「再多一個通用爬蟲 / RAG 框架」
-- **而是**「可運營、有記憶、有數據護城河的垂直領域大腦」
-- 第一垂直：**香港賽馬（馬神）**
-- 後續可快速遷移至其他領域（玄學、足球等）
-- 知識來源管理層做成產品級功能，是主要差異化點之一
-
----
-
-## 當前狀態
-
-- [x] 架構與 Knowledge Ingestion 設計落地
-- [x] Source Registry Schema + 示例 / 啟用來源
-- [x] tianxi-database connector（可跑，產出 Run + chunks）
-- [x] 基礎 Crawl Run 記錄寫入
-- [ ] Health Metrics 聚合
-- [ ] tianxi-backend API connector
-- [ ] Dify + Mem0 接駁骨架
-- [ ] 第一個 CrewAI Reflection Agent
-- [ ] web_crawl（Crawl4AI）connector
+- 不是再多一個通用爬蟲 / RAG 框架
+- 而是**可運營、有記憶、有數據護城河的垂直領域大腦**
+- 第一垂直：香港賽馬（馬神）
+- 知識來源管理層（清晰列表 + 健康指標 + 選擇性增刪）是產品差異化重點
 
 ---
 
