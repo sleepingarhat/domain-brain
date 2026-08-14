@@ -1,9 +1,7 @@
 """Reflection Agent skeleton — compare predictions vs results and write memory notes.
 
-This is a lightweight, dependency-optional skeleton.
-When crewai + an LLM key are available, expand into a full Crew.
-For now it produces a structured reflection note that can be stored in Mem0
-or as a knowledge chunk.
+Lightweight, dependency-optional skeleton.
+Produces a structured reflection note for local chunks or optional Mem0.
 """
 
 from __future__ import annotations
@@ -19,11 +17,7 @@ def build_reflection_note(
     results: list[dict[str, Any]],
     model_version: str | None = None,
 ) -> dict[str, Any]:
-    """Build a structured reflection note from predictions and actual results.
-
-    predictions / results are free-form dicts from tianxi connectors.
-    The note is meant to be ingested into Mem0 or Dify as long-term memory.
-    """
+    """Build a structured reflection note from predictions and actual results."""
     pred_names = []
     for p in predictions[:8]:
         name = p.get("name_ch") or p.get("name") or p.get("horse") or str(p)[:40]
@@ -57,8 +51,10 @@ def build_reflection_note(
     }
 
 
-def reflection_to_mem0_payload(note: dict[str, Any], user_id: str = "ma-shen") -> dict[str, Any]:
-    """Shape a note into a Mem0-friendly add() payload (messages style)."""
+def reflection_to_mem0_payload(
+    note: dict[str, Any], user_id: str = "tianxi-brain"
+) -> dict[str, Any]:
+    """Shape a note into a Mem0-friendly add() payload (optional)."""
     return {
         "messages": [
             {
