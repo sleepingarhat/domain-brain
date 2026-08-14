@@ -28,6 +28,19 @@ jobs:
           python -m ingestion.cli --source tianxi-api
         continue-on-error: true
 
+      # 免費 + 有更新節奏的評論／官方源
+      - name: Crawl HKJC public news/results
+        run: python -m ingestion.cli --source hkjc-news
+        continue-on-error: true
+
+      - name: Crawl Idol Horse
+        run: python -m ingestion.cli --source idol-horse
+        continue-on-error: true
+
+      - name: Crawl The Standard HK racing
+        run: python -m ingestion.cli --source the-standard-inside-track
+        continue-on-error: true
+
       - name: Build local BM25 index
         run: |
           python -m brain.cli build
