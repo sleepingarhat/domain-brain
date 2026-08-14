@@ -1,12 +1,11 @@
 """Connector for tianxi-backend (TX-Oracle prediction API).
 
-Endpoints used (from tianxi-backend README):
+Endpoints used:
   GET /api/analyze/today-picks
   GET /api/analyze/top-picks?raceId=
   GET /api/analyze/hit-rate?date=
 
-Base URL is configurable via source.config.base_url
-(e.g. https://tianxi-backend.<subdomain>.workers.dev).
+Base URL via source.config.base_url (e.g. https://www.tianxi.racing).
 """
 
 from __future__ import annotations
@@ -35,6 +34,39 @@ def _content_hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
 
 
+def _summarize_race(race: dict[str, Any], meta: dict[str, Any] | None = None) -> str:
+    """Human-readable Chinese summary for BM25 / RAG."""
+    meta = meta or {}
+    date = meta.get("date") or race.get("date") or ""
+    venue = meta.get("venue") or race.get("venue") or ""
+    lines = [
+        f"TX-Oracle 預測摘要",
+        f"日期: {date}  場地: {venue}",
+        f"場次: {race.get('raceNumber') or race.get('race_number') or '?'}",
+        f"賽名: {race.get('title') or ''}",
+        f"班次: {race.get('class') or ''}  途程: {race.get('distance') or ''}  "
+        f"地質: {race.get('going') or meta.get('trackCondition') or ''}",
+        f"raceId: {race.get('raceId') or race.get('race_id') or ''}",
+        "精選馬:",
+    ]
+    picks = race.get("picks") or []
+    if isinstance(picks, list):
+        for p in picks[:8]:
+            if not isinstance(p, dict):
+                continue
+            lines.append(
+                f"- {p.get('horseNumber') or p.get('number') or '?'}號 "
+                f"{p.get('nameCh') or p.get('name') or ''} "
+                f"騎師:{p.get('jockeyCh') or p.get('jockey') or ''} "
+                f"練馬師:{p.get('trainerCh') or p.get('trainer') or ''} "
+                f"檔:{p.get('draw') or ''}"
+            )
+    # keep a short JSON tail for structured fans
+    lines.append("\n--- raw picks (截斷) ---")
+    lines.append(json.dumps(picks[:5], ensure_ascii=False, default=str)[:2000])
+    return "\n".join(lines)
+
+
 class TianxiApiConnector:
     def __init__(self, source: Source, client: httpx.Client | None = None):
         if source.type.value != "api":
@@ -48,7 +80,7 @@ class TianxiApiConnector:
         if not self.base:
             raise ValueError(
                 "tianxi-api source requires config.base_url "
-                "(e.g. https://tianxi-backend.xxx.workers.dev)"
+                "(e.g. https://www.tianxi.racing)"
             )
         self.client = client or httpx.Client(timeout=45.0, follow_redirects=True)
 
@@ -60,9 +92,6 @@ class TianxiApiConnector:
 
     def fetch_today_picks(self) -> Any:
         return self._get_json("/api/analyze/today-picks")
-
-    def fetch_top_picks(self, race_id: str) -> Any:
-        return self._get_json("/api/analyze/top-picks", params={"raceId": race_id})
 
     def run(self) -> tuple[CrawlRun, list[dict[str, Any]]]:
         started = _now_hk()
@@ -80,8 +109,13 @@ class TianxiApiConnector:
             content_hash = _content_hash(raw)
             items_fetched = 1
 
-            # Normalise into readable knowledge chunks
+            meta: dict[str, Any] = {}
             if isinstance(data, dict):
+                meta = {
+                    "date": data.get("date"),
+                    "venue": data.get("venue"),
+                    "trackCondition": data.get("trackCondition"),
+                }
                 races = data.get("races") or data.get("picks") or [data]
             elif isinstance(data, list):
                 races = data
@@ -89,15 +123,15 @@ class TianxiApiConnector:
                 races = [{"raw": data}]
 
             for i, race in enumerate(races[:20]):
+                if not isinstance(race, dict):
+                    continue
                 title = (
-                    f"TX-Oracle today picks #{i+1}"
-                    if not isinstance(race, dict)
-                    else race.get("raceId")
+                    race.get("raceId")
                     or race.get("race_id")
-                    or race.get("name")
+                    or race.get("title")
                     or f"race-{i+1}"
                 )
-                body = json.dumps(race, ensure_ascii=False, indent=2, default=str)
+                body = _summarize_race(race, meta)
                 chunks.append(
                     {
                         "source_id": self.source.id,
@@ -107,6 +141,7 @@ class TianxiApiConnector:
                         "metadata": {
                             "endpoint": "/api/analyze/today-picks",
                             "index": i,
+                            **{k: v for k, v in meta.items() if v is not None},
                         },
                     }
                 )
