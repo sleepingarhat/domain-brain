@@ -1,13 +1,13 @@
-name: Ingest tianxi-database
+name: TianxiBrain daily ingest + index
 
 on:
   schedule:
-    # 每天 01:30 HKT ≈ 17:30 UTC（賽日後數據大致齊）
+    # 每天 01:30 HKT ≈ 17:30 UTC
     - cron: "30 17 * * *"
   workflow_dispatch:
 
 jobs:
-  ingest:
+  ingest-and-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,16 +19,27 @@ jobs:
       - name: Install
         run: pip install -e .
 
-      - name: Run tianxi-database connector
+      - name: Ingest tianxi-database
         run: |
-          python -m ingestion.cli --source tianxi-database --lookback-days 14 --max-days 5
+          python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 5
+
+      - name: Ingest tianxi-api
+        run: |
+          python -m ingestion.cli --source tianxi-api
+        continue-on-error: true
+
+      - name: Build local BM25 index
+        run: |
+          python -m brain.cli build
 
       - name: Upload artefacts
         uses: actions/upload-artifact@v4
         with:
-          name: ingestion-output
+          name: tianxi-brain-${{ github.run_id }}
           path: |
             ingestion/runs/
             ingestion/chunks/
             ingestion/metrics/
+            brain/index/
           if-no-files-found: warn
+          retention-days: 14
