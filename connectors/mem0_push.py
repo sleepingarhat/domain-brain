@@ -1,9 +1,9 @@
-"""Push reflection notes / facts into Mem0 Platform.
+"""Push reflection notes / facts into Mem0 Platform for 天喜腦 (TianxiBrain).
 
 Requires:
   pip install mem0ai
   export MEM0_API_KEY=...
-  optional: MEM0_USER_ID=ma-shen
+  optional: MEM0_USER_ID=tianxi-brain
 """
 
 from __future__ import annotations
@@ -35,7 +35,7 @@ def add_text_memory(
 ) -> Any:
     """Store a free-form text memory (assistant message style)."""
     client = get_client(api_key)
-    uid = user_id or os.environ.get("MEM0_USER_ID", "ma-shen")
+    uid = user_id or os.environ.get("MEM0_USER_ID", "tianxi-brain")
     messages = [{"role": "assistant", "content": text}]
     return client.add(messages, user_id=uid, metadata=metadata or {})
 
@@ -49,7 +49,7 @@ def add_reflection_note(
     """Store a race reflection note from agents.reflection_agent."""
     from agents.reflection_agent import reflection_to_mem0_payload
 
-    uid = user_id or os.environ.get("MEM0_USER_ID", "ma-shen")
+    uid = user_id or os.environ.get("MEM0_USER_ID", "tianxi-brain")
     payload = reflection_to_mem0_payload(note, user_id=uid)
     client = get_client(api_key)
     return client.add(
@@ -67,5 +67,5 @@ def search_memories(
     limit: int = 5,
 ) -> Any:
     client = get_client(api_key)
-    uid = user_id or os.environ.get("MEM0_USER_ID", "ma-shen")
+    uid = user_id or os.environ.get("MEM0_USER_ID", "tianxi-brain")
     return client.search(query, user_id=uid, limit=limit)
