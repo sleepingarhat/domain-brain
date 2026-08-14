@@ -1,0 +1,30 @@
+[project]
+name = "domain-brain"
+version = "0.1.0"
+description = "Productizable domain AI brain: memory evolution, style cloning, knowledge ingestion, semi-auto social ops"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "sleepingarhat" }]
+dependencies = [
+    "httpx>=0.27",
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "pandas>=2.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.6",
+]
+
+[project.scripts]
+domain-brain-run = "ingestion.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ingestion*", "connectors*"]
