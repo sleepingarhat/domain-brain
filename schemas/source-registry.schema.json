@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sleepingarhat/domain-brain/schemas/source-registry.schema.json",
+  "title": "SourceRegistryEntry",
+  "description": "A single knowledge source in the domain-brain Source Registry",
+  "type": "object",
+  "required": ["id", "name", "type", "enabled"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable unique identifier",
+      "pattern": "^[a-z0-9][a-z0-9\-_]{1,63}$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "type": {
+      "type": "string",
+      "enum": ["web_crawl", "rss", "api", "database", "manual"],
+      "description": "Source type"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether this source is active"
+    },
+    "url": {
+      "type": ["string", "null"],
+      "description": "Primary URL, API endpoint, or connection hint"
+    },
+    "schedule": {
+      "type": ["string", "null"],
+      "description": "Cron expression (optional)"
+    },
+    "domain_tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Domain tags for filtering, e.g. horse_racing, news"
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 5,
+      "description": "1 = highest priority"
+    },
+    "auth": {
+      "type": ["object", "null"],
+      "description": "Optional auth config (token, headers, etc.)"
+    },
+    "config": {
+      "type": "object",
+      "description": "Type-specific configuration",
+      "additionalProperties": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Free-form notes"
+    }
+  },
+  "additionalProperties": false
+}
