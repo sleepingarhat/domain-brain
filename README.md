@@ -68,6 +68,24 @@ Schema → [`schemas/source-registry.schema.json`](schemas/source-registry.schem
 
 ---
 
+## Quick Start（第一個可跑的 connector）
+
+```bash
+# 1. 安裝依賴
+pip install -e .
+
+# 2. 跑 tianxi-database 來源（最近數個賽馬日 results CSV）
+python -m ingestion.cli --source tianxi-database --lookback-days 14 --max-days 5
+
+# 輸出：
+# - ingestion/runs/<run_id>.json      ← Crawl Run 記錄
+# - ingestion/chunks/<run_id>.json    ← 知識 chunks（可再推入 Dify / Mem0）
+```
+
+來源定義位於 `ingestion/sources/tianxi-database.yaml`，可直接增刪改。
+
+---
+
 ## 技術棧（MVP）
 
 | 層級 | 選擇 | 備註 |
@@ -81,26 +99,26 @@ Schema → [`schemas/source-registry.schema.json`](schemas/source-registry.schem
 
 ---
 
-## 資料夾結構（規劃）
+## 資料夾結構
 
 ```
 domain-brain/
 ├── README.md
+├── pyproject.toml
 ├── docs/
-│   ├── knowledge-ingestion.md      # 本層完整設計
-│   └── architecture.md             # 整體架構（後續）
+│   └── knowledge-ingestion.md
 ├── schemas/
 │   ├── source-registry.schema.json
 │   └── crawl-run.schema.json
 ├── ingestion/
-│   ├── sources/                    # 來源定義（YAML/JSON）
-│   ├── runs/                       # 執行記錄
-│   └── metrics/                    # 健康指標聚合
-├── connectors/                     # 各類型連接器實作
-│   ├── tianxi_db.py
-│   ├── tianxi_api.py
-│   ├── web_crawl4ai.py
-│   └── manual.py
+│   ├── models.py           # Source / CrawlRun / HealthMetrics
+│   ├── registry.py         # YAML Source Registry loader
+│   ├── cli.py              # 執行入口
+│   ├── sources/            # 已啟用的來源定義
+│   ├── runs/               # 執行記錄（自動產生）
+│   └── chunks/             # 產出的知識片段（自動產生）
+├── connectors/
+│   └── tianxi_db.py        # tianxi-database connector（已實作）
 └── examples/
     └── sources/
         └── tianxi-database.example.yaml
@@ -121,11 +139,14 @@ domain-brain/
 ## 當前狀態
 
 - [x] 架構與 Knowledge Ingestion 設計落地
-- [ ] Source Registry Schema + 示例來源
-- [ ] tianxi-database / tianxi-backend connector
-- [ ] 基礎 Crawl Run + Health Metrics 記錄
+- [x] Source Registry Schema + 示例 / 啟用來源
+- [x] tianxi-database connector（可跑，產出 Run + chunks）
+- [x] 基礎 Crawl Run 記錄寫入
+- [ ] Health Metrics 聚合
+- [ ] tianxi-backend API connector
 - [ ] Dify + Mem0 接駁骨架
 - [ ] 第一個 CrewAI Reflection Agent
+- [ ] web_crawl（Crawl4AI）connector
 
 ---
 
