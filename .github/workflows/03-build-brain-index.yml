@@ -19,7 +19,6 @@ jobs:
           python-version: "3.12"
       - name: Install
         run: pip install -e .
-      # 重建前先拉一次最新數據（避免只得空 index）
       - name: Refresh tianxi-database sample
         run: python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 3
         continue-on-error: true
@@ -28,6 +27,9 @@ jobs:
         continue-on-error: true
       - name: compile wiki
         run: python -m brain.cli compile
+        continue-on-error: true
+      - name: reflect completed meetings
+        run: python -m brain.cli reflect --lookback-days 5 --max-days 2
         continue-on-error: true
       - name: brain.cli build
         run: python -m brain.cli build
