@@ -18,10 +18,14 @@ layer: knowledge
 - 實體：`wiki/entities/horses/` · `jockeys/` · `trainers/` · `courses/`
 - 概念：`wiki/concepts/`
 - 來源：`wiki/sources/`
-- 賽日紜合：`wiki/synthesis/`
+- 賽日紛合：`wiki/synthesis/`
 - 風格樣本：`wiki/style/`
 - 規則：[[RULES]]
+- 路由：[[routing-map]]
+- 開 session：[[hot]]
 - 變更日誌：[[log]]
+- Agent 憲法：倉根 `AGENTS.md`
+- 工作卡：`prompts/`
 
 ## 頁面
 

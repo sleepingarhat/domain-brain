@@ -11,7 +11,7 @@ tianxi-database / TX-Oracle          HKJC / 馬經 / 人手筆記
         │                         compile（只 append）
         │                                    ▼
         │                         wiki entities + 矛盾時間線
-        └─────────────┬─────────────────────┘
+        └────────────┬─────────────────────┘
                        ▼
               retrieve：BM25（原文）+ 實體頁（理解）
                        ▼
@@ -22,9 +22,11 @@ tianxi-database / TX-Oracle          HKJC / 馬經 / 人手筆記
 
 | 路徑 | 角色 | 可寫？ |
 |------|------|--------|
+| `AGENTS.md` | 全部 agent 憲法 | 點名才准 |
+| `prompts/` | 一工一卡（risk / writes） | 點名才准 |
 | `ingestion/` | 來源 registry、crawl、chunks | 是（ingest） |
 | `brain/store.py` + `retrieve.py` | BM25 語料同檢索 | 索引檔 |
-| `brain/compile.py` + `wiki/` | 實體編譯、矛盾、日誌 | 只 `wiki/` |
+| `brain/compile.py` + `wiki/` | 實體編譯、矛盾、hot | 只 `wiki/` append |
 | `brain/lint_wiki.py` | 頁契約 | 否 |
 | `eval/golden.json` | 黃金問題 | 否 |
 | `agents/reflection_agent.py` | 預測 vs 賽果 → synthesis／馬頁 | 只 `wiki/` |
@@ -32,7 +34,12 @@ tianxi-database / TX-Oracle          HKJC / 馬經 / 人手筆記
 
 ## 規則來源
 
-編譯契約寫死嗎 `wiki/RULES.md`：一頁一實體、矛盾不覆蓋、預測標觀察、無人值守只准 append。
+- 跨 agent：`AGENTS.md`
+- 編譯契約：`wiki/RULES.md`
+- 目的地：`wiki/routing-map.md`
+- 開 session：`wiki/hot.md`
+
+無人值守只准 append。矛盾不覆蓋。預測標觀察。凍結一分不動。
 
 ## 指令
 
@@ -46,4 +53,4 @@ python -m brain.cli query "跑馬地第1場" --layer all
 python -m brain.cli query "場地適性" --layer wiki
 ```
 
-順序：ingest → compile → build。Build 會把 wiki 頁一併入 BM25。
+順序：ingest → compile → build。Build 會把 wiki 頁一併入 BM25。Compile 會刷 `wiki/hot.md` 最近矛盾。
