@@ -1,13 +1,7 @@
 name: Build Brain Index
 
 on:
-  schedule:
-    # 略晚於 ingest / crawl，等資料先入
-    - cron: "50 17 * * *"
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Ingest Tianxi Data", "Crawl Free Commentary"]
-    types: [completed]
 
 jobs:
   build:
