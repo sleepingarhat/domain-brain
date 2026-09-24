@@ -1,4 +1,4 @@
-"""BM25 retrieval for 天喜腦 — pure Python, no embedding API, no Dify credits."""
+"""BM25 retrieval for 天喜腦 — chunks + compiled wiki pages."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from brain.store import _tokenize, load_all_chunks, load_corpus, save_corpus
+from brain.wiki import wiki_as_docs
 
 
 @dataclass
@@ -56,25 +57,46 @@ class BM25:
 
 
 def build_index() -> dict[str, Any]:
-    """Rebuild corpus from all ingestion chunk files."""
+    """Rebuild corpus from ingestion chunks plus compiled wiki pages."""
     docs = load_all_chunks()
-    path = save_corpus(docs)
-    return {"doc_count": len(docs), "path": str(path)}
+    wiki_docs = wiki_as_docs()
+    merged = docs + wiki_docs
+    path = save_corpus(merged)
+    return {
+        "doc_count": len(merged),
+        "chunk_count": len(docs),
+        "wiki_count": len(wiki_docs),
+        "path": str(path),
+    }
 
 
-def search(query: str, top_k: int = 5) -> list[Hit]:
+def search(query: str, top_k: int = 5, layer: str = "all") -> list[Hit]:
     docs = load_corpus()
     if not docs:
-        # auto-build once if empty
         build_index()
         docs = load_corpus()
     if not docs:
         return []
 
-    tokens_list = [_tokenize((d.get("title") or "") + "\n" + (d.get("content") or "")) for d in docs]
+    if layer == "wiki":
+        docs = [d for d in docs if (d.get("metadata") or {}).get("kind") == "wiki"]
+    elif layer == "chunks":
+        docs = [d for d in docs if (d.get("metadata") or {}).get("kind") != "wiki"]
+
+    if not docs:
+        return []
+
+    tokens_list = [
+        _tokenize((d.get("title") or "") + "\n" + (d.get("content") or "")) for d in docs
+    ]
     bm25 = BM25(tokens_list)
     q_tokens = _tokenize(query)
     scores = bm25.score(q_tokens)
+
+    for i, d in enumerate(docs):
+        if (d.get("metadata") or {}).get("kind") == "wiki" and scores[i] > 0:
+            scores[i] *= 1.15
+
     ranked = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
 
     hits: list[Hit] = []
