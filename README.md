@@ -1,7 +1,7 @@
 # domain-brain · 天喜腦（TianxiBrain）
 
 **可產品化的領域 AI 大腦（免費本地路徑）**  
-知識餵入 · 來源管理 · 本地檢索 · 可選 LLM 一句答覆
+知識饋入 · wiki 編譯（記憶演化） · 本地檢索 · 可選 LLM 一句答覆
 
 > 產品名：**天喜腦（TianxiBrain）**  
 > 第一領域：香港賽馬（`tianxi-database` + TX-Oracle）  
@@ -21,10 +21,10 @@
 |----------|------|-------------|
 | **Ingest Tianxi Data** | `tianxi-database` + `tianxi-api` | 每日 01:30 |
 | **Crawl Free Commentary** | HKJC / Idol Horse / The Standard | 每日 01:40 |
-| **Build Brain Index** | `brain.cli build` | 每日 01:50 或上游完成後 |
+| **Build Brain Index** | `compile` + `build` + `lint` + `eval` | 每日 01:50 或上游完成後 |
 
-手動跑：Repo → **Actions** → 揀對應 workflow → **Run workflow**  
-詳細 run 記錄、log、artefacts 都喺 Actions 頁。
+手動跑：Repo → **Actions** → 揃對應 workflow → **Run workflow**  
+詳細 run 記錄、log、artefacts 都嗎 Actions 頁。
 
 本機睇來源健康：
 
@@ -45,11 +45,13 @@ pip install -e .
 
 python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 5
 python -m ingestion.cli --source tianxi-api
+python -m brain.cli compile
 python -m brain.cli build
 python -m brain.cli query "7月15日跑馬地第1場"
+python -m brain.cli query "場地適性" --layer wiki
 ```
 
-說明：[docs/brain-local.md](docs/brain-local.md) · [docs/knowledge-ingestion.md](docs/knowledge-ingestion.md)
+說明：[docs/architecture.md](docs/architecture.md) · [docs/wiki-layer.md](docs/wiki-layer.md) · [docs/brain-local.md](docs/brain-local.md) · [docs/knowledge-ingestion.md](docs/knowledge-ingestion.md)
 
 ---
 
@@ -58,10 +60,15 @@ python -m brain.cli query "7月15日跑馬地第1場"
 ```text
 Source Registry → ingestion / crawl → chunks
                                       ↓
-                              brain.cli build（BM25）
+                              brain.cli compile（wiki 實體頁，只 append）
                                       ↓
-                         query ／ query --answer（可選 LLM）
+                              brain.cli build（BM25：chunks + wiki）
+                                      ↓
+                         query ／ query --layer wiki|chunks|all
 ```
+
+知識層（`wiki/entities` · `concepts` · `sources`）同項目層（`wiki/synthesis` 賽日頁）分開。  
+凍結預測同模型指紋唔入 compile。矛盾寫低、唔覆蓋。Mem0 可選，唔取代檔案。
 
 ---
 
