@@ -8,7 +8,6 @@ Examples:
   python -m brain.cli reflect
   python -m brain.cli reflect --date 2026-09-21
   python -m brain.cli query "7月15日跑馬地賽果"
-  python -m brain.cli query "架勢奇爸" --layer wiki --top-k 3
 """
 
 from __future__ import annotations
@@ -64,7 +63,7 @@ def main(argv: list[str] | None = None) -> int:
         print(
             f"indexed {info['doc_count']} docs "
             f"(chunks={info.get('chunk_count')} wiki={info.get('wiki_count')}) "
-            f"→ {info['path']}"
+            f"-> {info['path']}"
         )
         return 0 if info["doc_count"] else 1
 
@@ -101,7 +100,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "query":
         hits = search(args.text, top_k=args.top_k, layer=args.layer)
         if not hits:
-            print(（no hits — 先跑 ingestion，再 python -m brain.cli compile && python -m brain.cli build）")
+            print("(no hits - run ingestion, then python -m brain.cli compile && python -m brain.cli build)")
             return 1
 
         if args.answer:
@@ -118,15 +117,15 @@ def main(argv: list[str] | None = None) -> int:
                 print()
             else:
                 print(
-                    "（未生成答覆：請設定 OPENAI_API_KEY；"
-                    "可選 OPENAI_BASE_URL / OPENAI_MODEL）\n"
+                    "(未生成答覆：請設定 OPENAI_API_KEY；"
+                    "可選 OPENAI_BASE_URL / OPENAI_MODEL)\n"
                 )
 
         for i, h in enumerate(hits, 1):
             kind = (h.metadata or {}).get("kind") or "chunk"
             print(f"\n===== #{i}  score={h.score}  source={h.source_id}  layer={kind} =====")
             print(f"title: {h.title}")
-            preview = h.content if len(h.content) < 1200 else h.content[:1200] + "\n…"
+            preview = h.content if len(h.content) < 1200 else h.content[:1200] + "\n..."
             print(preview)
         return 0
 
