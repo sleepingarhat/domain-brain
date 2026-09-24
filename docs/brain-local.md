@@ -13,11 +13,13 @@ python -m ingestion.cli --source …
         ↓
 ingestion/chunks/*.json
         ↓
+python -m brain.cli compile
+        ↓
 python -m brain.cli build
         ↓
 brain/index/corpus.json
         ↓
-python -m brain.cli query "你的問題"
+python -m brain.cli query "你的問題" --layer all
 ```
 
 ---
@@ -30,9 +32,13 @@ pip install -e .
 python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 5
 python -m ingestion.cli --source tianxi-api
 
+python -m brain.cli compile
 python -m brain.cli build
+python -m brain.cli lint
+python -m brain.cli eval
 python -m brain.cli query "7月15日跑馬地"
 python -m brain.cli query "TX-Oracle 預測" --top-k 3
+python -m brain.cli query "冷熱偏" --layer wiki
 ```
 
 亦可用 entry point：`tianxi-brain build` / `tianxi-brain query "…"`
@@ -52,5 +58,5 @@ python -m brain.cli query "TX-Oracle 預測" --top-k 3
 
 ## 注意
 
-- 索引目錄 `brain/index/` 預設 gitignore，每次 ingest 後記得 `build`
-- 查詢無命中時：先確認已跑 ingestion 且 `build` 成功
+- 索引目錄 `brain/index/` 預設 gitignore；wiki 頁入庫。每次 ingest 後：`compile` 再 `build`
+- 查詢無命中時：先確認已跑 ingestion、`compile`、`build`

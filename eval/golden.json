@@ -1,0 +1,8 @@
+[
+  {"id": "venue-hv", "q": "跑馬地賽果", "must_any": ["跑馬地", "谷"]},
+  {"id": "venue-st", "q": "沙田賽果", "must_any": ["沙田"]},
+  {"id": "tx-oracle", "q": "TX-Oracle 預測", "must_any": ["TX-Oracle", "預測", "tianxi-api"]},
+  {"id": "concept-bias", "q": "冷熱偏", "must_any": ["冷熱偏", "賠率"]},
+  {"id": "concept-course-fit", "q": "場地適性", "must_any": ["場地適性", "沙田", "跑馬地"]},
+  {"id": "wiki-layer", "q": "知識層索引", "must_any": ["知識層", "wiki", "實體"]}
+]
