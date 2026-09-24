@@ -28,12 +28,7 @@ Agent 開 session 先讀呢頁。Compile 會刷新「最近矛盾」同「最近
 ### 最近矛盾
 
 <!-- HOT:CONTRADICTIONS -->
-（compile 後自動列）
-
-### 最近編譯
-
-<!-- HOT:LOG -->
-（compile 後自動列）
+（未有未結矛盾）
 
 ## 矛盾
 
