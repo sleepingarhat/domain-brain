@@ -1,8 +1,10 @@
-"""天喜腦（TianxiBrain）— 輕量開源本地檢索層（方案 B）。
+"""天喜腦（TianxiBrain）— 本地檢索 + wiki 編譯層。
 
-不依賴 Dify Cloud credits。以 ingestion chunks 建 BM25 索引，支援 CLI 查詢。
+chunks（BM25）負責原文召回；wiki 負責實體記憶演化。
+不依賴雲端知識庫付費額度。
 """
 
-__all__ = ["build_index", "search"]
+__all__ = ["build_index", "search", "compile_chunks"]
 
+from brain.compile import compile_chunks
 from brain.retrieve import build_index, search

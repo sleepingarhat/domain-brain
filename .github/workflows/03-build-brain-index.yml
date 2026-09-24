@@ -26,14 +26,23 @@ jobs:
       - name: Refresh tianxi-api
         run: python -m ingestion.cli --source tianxi-api
         continue-on-error: true
+      - name: compile wiki
+        run: python -m brain.cli compile
+        continue-on-error: true
       - name: brain.cli build
         run: python -m brain.cli build
+      - name: lint wiki
+        run: python -m brain.cli lint
+        continue-on-error: true
+      - name: golden eval
+        run: python -m brain.cli eval
       - name: Upload index
         uses: actions/upload-artifact@v4
         with:
           name: brain-index-${{ github.run_id }}
           path: |
             brain/index/
+            wiki/
             ingestion/chunks/
             ingestion/metrics/
           if-no-files-found: warn

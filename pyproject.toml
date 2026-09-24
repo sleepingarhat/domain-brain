@@ -1,7 +1,7 @@
 [project]
 name = "domain-brain"
-version = "0.2.0"
-description = "天喜腦 TianxiBrain — productizable domain AI brain"
+version = "0.3.0"
+description = "天喜腦 TianxiBrain — ingest + wiki compile + local BM25"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
