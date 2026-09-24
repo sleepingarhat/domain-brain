@@ -4,7 +4,7 @@ id: wiki-hot
 title: Hot context
 aliases: []
 sources: []
-updated: 2026-09-24
+updated: 2026-09-25
 status: active
 layer: knowledge
 ---
