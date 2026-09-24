@@ -11,5 +11,7 @@ layer: knowledge
 
 # 風格樣本
 
-把認可過嘅評述／筆記饋入 `ingestion/manual/` 後，compile 會嗎呢度留索引。  
-社交草稿用呢啲頁做語氣參考，**發佈要人手批**。
+用 `python -m brain.cli style-seed --file <已刊短文>` 塞入認可聲線。  
+社交草稿對照呢些頁，**發佈要人手批**。
+
+詳見 [docs/style-layer.md](../../docs/style-layer.md)。

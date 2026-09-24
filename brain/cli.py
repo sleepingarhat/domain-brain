@@ -1,19 +1,10 @@
-"""CLI for 天喜腦 local brain.
-
-Examples:
-  python -m brain.cli compile
-  python -m brain.cli build
-  python -m brain.cli lint
-  python -m brain.cli eval
-  python -m brain.cli reflect
-  python -m brain.cli reflect --date 2026-09-21
-  python -m brain.cli query "7月15日跑馬地賽果"
-"""
+"""CLI for 天喜腦 local brain."""
 
 from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 
 from brain.retrieve import build_index, search
 
@@ -33,6 +24,10 @@ def main(argv: list[str] | None = None) -> int:
     rf.add_argument("--lookback-days", type=int, default=5)
     rf.add_argument("--max-days", type=int, default=2, help="一次最多幾個完場日（禁回測充場）")
     rf.add_argument("--model-version", default="tx-oracle-observation")
+
+    st = sub.add_parser("style-seed", help="將已刊短文塞入 wiki/style（不發佈）")
+    st.add_argument("--file", required=True, help="本地 .md / .txt")
+    st.add_argument("--title", help="樣本標題；缺席用檔名")
 
     q = sub.add_parser("query", help="查詢知識")
     q.add_argument("text", help="查詢句子")
@@ -95,6 +90,13 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         if args.date and report.get("reason") == "no_green_results":
             return 2
+        return 0 if report.get("ok") else 1
+
+    if args.cmd == "style-seed":
+        from agents.style_seed import seed_style_file
+
+        report = seed_style_file(Path(args.file), title=args.title)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0 if report.get("ok") else 1
 
     if args.cmd == "query":

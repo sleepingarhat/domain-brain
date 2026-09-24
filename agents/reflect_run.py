@@ -188,6 +188,13 @@ def reflect_completed(
         out = write_reflection_to_wiki(note)
         wrote.append(out)
 
+    try:
+        from brain.compile import _refresh_hot
+
+        _refresh_hot()
+    except Exception:
+        pass
+
     return {
         "ok": True,
         "skipped": False,

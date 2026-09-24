@@ -14,8 +14,8 @@ inputs:
 Ground rules: 發佈一定人手批。唔發明統計。缺證據標 `[needs source]`。
 
 Job: style-draft
-1. 讀 `wiki/style/` 最多三篇已有樣本。用兩句講聲線（句長、第一／二人稱、點題方式），等人精正先草。
-2. 只用 wiki 結論／觀察／賽日 synthesis 做材料。凍結預測唔引當已完場事實。
-3. 草稿寫入 `wiki/style/` 新檔或追加段落。`status: draft`。
-4. 唔移出 `wiki/style/`、唔呼發佈 API、唔改實體結論。
-5. 結束列出用過邊些來源頁，等人批發。
+1. 數 `wiki/style/` 內 `status: sample` 頁。不足兩篇就停，叫人先跑 `python -m brain.cli style-seed --file ...`。唔好用通用 AI 口吻頂替。
+2. 讀最多三篇樣本。用兩句講聲線，等人精正先草。
+3. 只用 wiki 結論／觀察／賽日 synthesis 做材料。凍結預測唔引當已完場事實。
+4. 草稿寫入 `wiki/style/` 新檔。`status: draft`。
+5. 唔呼發佈 API。結束列出來源頁，等人批發。
