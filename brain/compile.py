@@ -21,6 +21,7 @@ KIND_TO_TYPE = {
 }
 
 MAX_OBS = 40
+META_TYPES = {"index", "log", "meta", "hot", "style"}
 
 
 def _obs_line(m: Mention) -> str:
@@ -124,6 +125,7 @@ def compile_chunks(chunks: list[dict[str, Any]] | None = None) -> dict[str, Any]
         observations=observations,
         chunks=len(docs),
     )
+    _refresh_hot()
     return {
         "chunks": len(docs),
         "pages_touched": len(updated_pages),
@@ -172,3 +174,51 @@ def _append_log(**counts: Any) -> None:
         path.write_text(text.replace(marker, marker + "\n" + line, 1), encoding="utf-8")
         return
     path.write_text(text.rstrip() + "\n" + line + "\n", encoding="utf-8")
+
+
+def _replace_marker(text: str, marker: str, block: str) -> str:
+    if marker not in text:
+        return text
+    head, _, tail = text.partition(marker)
+    # Drop previous auto block until next heading or EOF.
+    rest = tail.lstrip("\n")
+    cut = rest.find("\n## ")
+    if cut == -1:
+        cut = rest.find("\n### ")
+    leftover = rest[cut:] if cut != -1 else ""
+    return head + marker + "\n" + block.rstrip() + "\n" + leftover
+
+
+def _refresh_hot() -> None:
+    path = WIKI_DIR / "hot.md"
+    if not path.exists():
+        return
+    contradictions: list[str] = []
+    for page in iter_pages():
+        if page.meta.get("type") in META_TYPES:
+            continue
+        body = (page.sections.get("矛盾") or "").strip()
+        if body in ("", "（未有）"):
+            continue
+        for ln in body.splitlines():
+            s = ln.strip()
+            if s.startswith("- "):
+                contradictions.append(f"- [[{page.path.stem}]] {s[2:]}")
+    contradictions = contradictions[-8:]
+    contra_block = "\n".join(contradictions) if contradictions else "（未有未結矛盾）"
+
+    log_path = WIKI_DIR / "log.md"
+    log_lines: list[str] = []
+    if log_path.exists():
+        for ln in log_path.read_text(encoding="utf-8").splitlines():
+            if ln.startswith("- ") and "chunks=" in ln:
+                log_lines.append(ln)
+    log_block = "\n".join(log_lines[:5]) if log_lines else "（尚未 compile）"
+
+    text = path.read_text(encoding="utf-8")
+    text = _replace_marker(text, "<!-- HOT:CONTRADICTIONS -->", contra_block)
+    text = _replace_marker(text, "<!-- HOT:LOG -->", log_block)
+    text = text.replace("updated: 2026-09-24", f"updated: {today_hk()}")
+    if "updated:" in text.split("---", 2)[1] if text.startswith("---") else "":
+        pass
+    path.write_text(text, encoding="utf-8")

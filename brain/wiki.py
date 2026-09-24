@@ -25,9 +25,12 @@ TYPE_DIR = {
     "style": WIKI_DIR / "style",
     "index": WIKI_DIR,
     "log": WIKI_DIR,
+    "meta": WIKI_DIR,
+    "hot": WIKI_DIR,
 }
 
 SECTIONS = ("結論", "觀察", "矛盾", "來源")
+SKIP_NAMES = {"RULES.MD", "README.MD"}
 
 
 def today_hk() -> str:
@@ -219,6 +222,10 @@ def page_path(page_type: str, title: str) -> Path:
         return WIKI_DIR / "index.md"
     if page_type == "log":
         return WIKI_DIR / "log.md"
+    if page_type == "hot":
+        return WIKI_DIR / "hot.md"
+    if page_type == "meta" and title.lower() in {"routing-map", "routing map"}:
+        return WIKI_DIR / "routing-map.md"
     return folder / f"{slugify(title)}.md"
 
 
@@ -249,7 +256,7 @@ def iter_pages(wiki_dir: Path | None = None) -> list[WikiPage]:
         return []
     pages: list[WikiPage] = []
     for path in sorted(root.rglob("*.md")):
-        if path.name.upper() in {"RULES.MD", "README.MD"}:
+        if path.name.upper() in SKIP_NAMES:
             continue
         page = load_page(path)
         if page:
