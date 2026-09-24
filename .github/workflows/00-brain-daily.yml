@@ -1,0 +1,120 @@
+name: Brain Daily
+
+on:
+  schedule:
+    # 12:00 HKT — stamp today's card so later results can pair
+    - cron: "0 4 * * *"
+    # 01:30 HKT — completed results + reflect
+    - cron: "30 17 * * *"
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: card=today-picks only; results=db+reflect; full=both
+        type: choice
+        options: [card, results, full]
+        default: full
+
+permissions:
+  contents: write
+
+concurrency:
+  group: brain-daily
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install -e .
+
+      - name: Resolve slot
+        id: slot
+        run: |
+          HOUR=$(date -u +%H)
+          INPUT="${{ github.event.inputs.slot }}"
+          if [ -n "$INPUT" ]; then
+            SLOT="$INPUT"
+          elif [ "$HOUR" = "04" ]; then
+            SLOT=card
+          else
+            SLOT=results
+          fi
+          echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
+          echo "hk=$(TZ=Asia/Hong_Kong date +%F_%H%M)" >> "$GITHUB_OUTPUT"
+          echo "SLOT=$SLOT"
+
+      - name: Ingest today-picks
+        if: steps.slot.outputs.slot != 'results'
+        run: python -m ingestion.cli --source tianxi-api
+        continue-on-error: true
+
+      - name: Ingest completed results
+        if: steps.slot.outputs.slot != 'card'
+        run: python -m ingestion.cli --source tianxi-database --lookback-days 14 --max-days 3
+        continue-on-error: true
+
+      - name: Crawl free commentary
+        if: steps.slot.outputs.slot != 'card'
+        run: |
+          python -m ingestion.cli --source hkjc-news || true
+          python -m ingestion.cli --source idol-horse || true
+          python -m ingestion.cli --source the-standard-inside-track || true
+
+      - name: compile wiki
+        run: python -m brain.cli compile
+        continue-on-error: true
+
+      - name: reflect completed meetings
+        if: steps.slot.outputs.slot != 'card'
+        run: python -m brain.cli reflect --lookback-days 5 --max-days 2
+        continue-on-error: true
+
+      - name: build index
+        if: steps.slot.outputs.slot != 'card'
+        run: python -m brain.cli build
+        continue-on-error: true
+
+      - name: lint + eval
+        if: steps.slot.outputs.slot != 'card'
+        run: |
+          python -m brain.cli lint || true
+          python -m brain.cli eval || true
+
+      - name: Prune chunks older than 21 days
+        run: python scripts/prune_chunks.py --keep-days 21
+        continue-on-error: true
+
+      - name: Commit memory
+        run: |
+          git config user.name "tianxi-brain-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p ingestion/chunks wiki
+          git add wiki ingestion/chunks
+          if git diff --staged --quiet; then
+            echo "no memory changes"
+            exit 0
+          fi
+          git commit -m "brain(${{ steps.slot.outputs.slot }}): ${{ steps.slot.outputs.hk }}"
+          git pull --rebase --autostash origin main || git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Upload artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: brain-${{ steps.slot.outputs.slot }}-${{ github.run_id }}
+          path: |
+            wiki/
+            ingestion/chunks/
+            ingestion/metrics/
+            brain/index/
+          if-no-files-found: warn
+          retention-days: 14
