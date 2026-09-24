@@ -5,34 +5,23 @@
 
 > 產品名：**天喜腦（TianxiBrain）**  
 > 第一領域：香港賽馬（`tianxi-database` + TX-Oracle）  
-> **方案 B**：本機 / GitHub Actions 免費跑通，不依賴雲端知識庫付費額度。
+> **方案 B**：本機 / GitHub Actions 免費跑通。
 
 ---
 
-## 監察（GitHub Actions）
+## 自動（GitHub Actions）
 
-同 `tianxi-database` 一樣，用 workflow badge 睇通過／失敗：
+[![Brain Daily](https://github.com/sleepingarhat/domain-brain/actions/workflows/00-brain-daily.yml/badge.svg)](https://github.com/sleepingarhat/domain-brain/actions/workflows/00-brain-daily.yml)
 
-[![Ingest Tianxi Data](https://github.com/sleepingarhat/domain-brain/actions/workflows/01-ingest-tianxi-data.yml/badge.svg)](https://github.com/sleepingarhat/domain-brain/actions/workflows/01-ingest-tianxi-data.yml)
-[![Crawl Free Commentary](https://github.com/sleepingarhat/domain-brain/actions/workflows/02-crawl-commentary.yml/badge.svg)](https://github.com/sleepingarhat/domain-brain/actions/workflows/02-crawl-commentary.yml)
-[![Build Brain Index](https://github.com/sleepingarhat/domain-brain/actions/workflows/03-build-brain-index.yml/badge.svg)](https://github.com/sleepingarhat/domain-brain/actions/workflows/03-build-brain-index.yml)
+| Workflow | HKT | 做哎 |
+|----------|-----|------|
+| **Brain Daily** `card` | 12:00 | 收 today-picks，compile，commit wiki + chunks |
+| **Brain Daily** `results` | 01:30 | 賽果 + 評論 → compile → reflect → build，commit 記憶 |
 
-| Workflow | 做咩 | 排程（HKT） |
-|----------|------|-------------|
-| **Ingest Tianxi Data** | `tianxi-database` + `tianxi-api` | 每日 01:30 |
-| **Crawl Free Commentary** | HKJC / Idol Horse / The Standard | 每日 01:40 |
-| **Build Brain Index** | `compile` + `build` + `lint` + `eval` | 每日 01:50 或上游完成後 |
+詳見 [docs/automation.md](docs/automation.md)。  
+風格草稿、社交發佈、凍結預測 **不自動**。
 
-手動跑：Repo → **Actions** → 揀對應 workflow → **Run workflow**  
-詳細 run 記錄、log、artefacts 都嗎 Actions 頁。
-
-本機睇來源健康：
-
-```bash
-python -m ingestion.cli --list
-python -m ingestion.cli --health tianxi-database
-python -m ingestion.cli --health hkjc-news
-```
+舊的 01 / 02 / 03 只保手動跑。
 
 ---
 
@@ -46,12 +35,11 @@ pip install -e .
 python -m ingestion.cli --source tianxi-database --lookback-days 40 --max-days 5
 python -m ingestion.cli --source tianxi-api
 python -m brain.cli compile
+python -m brain.cli reflect
 python -m brain.cli build
 python -m brain.cli query "7月15日跑馬地第1場"
 python -m brain.cli query "場地適性" --layer wiki
 ```
-
-說明：[docs/architecture.md](docs/architecture.md) · [docs/wiki-layer.md](docs/wiki-layer.md) · [docs/agent-governance.md](docs/agent-governance.md) · [AGENTS.md](AGENTS.md) · [prompts/](prompts/)
 
 ---
 
@@ -60,29 +48,14 @@ python -m brain.cli query "場地適性" --layer wiki
 ```text
 Source Registry → ingestion / crawl → chunks
                                       ↓
-                              brain.cli compile（wiki 實體頁，只 append）
+                              compile（wiki，只 append）
                                       ↓
-                              brain.cli build（BM25：chunks + wiki）
+                              reflect（綠燈完場才寫）
                                       ↓
-                         query ／ query --layer wiki|chunks|all
+                              build（BM25）
 ```
 
-知識層（`wiki/entities` · `concepts` · `sources`）同項目層（`wiki/synthesis` 賽日頁）分開。  
-凍結預測同模型指紋唔入 compile。矛盾寫低、唔覆蓋。  
-Agent 先讀 `AGENTS.md` 同 `wiki/hot.md`。工作卡在 `prompts/`。
-
----
-
-## 已註冊來源
-
-| id | 自動 | 說明 |
-|----|------|------|
-| `tianxi-database` | ✅ | 賽果 CSV |
-| `tianxi-api` | ✅ | TX-Oracle 預測 |
-| `hkjc-news` | ✅ | 馬會公開資訊／新聞 |
-| `idol-horse` | ✅ | Idol Horse 專題 |
-| `the-standard-inside-track` | ✅ | Standard 賽馬頁 |
-| 報章馬經等 | ❌ | 非免費穩定全文，registry 保留但關閉 |
+凍結預測不入 compile。矛盾寫低、唔覆蓋。
 
 ---
 
