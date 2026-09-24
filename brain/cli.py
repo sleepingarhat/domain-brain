@@ -5,6 +5,8 @@ Examples:
   python -m brain.cli build
   python -m brain.cli lint
   python -m brain.cli eval
+  python -m brain.cli reflect
+  python -m brain.cli reflect --date 2026-09-21
   python -m brain.cli query "7月15日跑馬地賽果"
   python -m brain.cli query "架勢奇爸" --layer wiki --top-k 3
 """
@@ -26,6 +28,12 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("lint", help="檢查 wiki 頁契約（唯讀）")
     ev = sub.add_parser("eval", help="跑 eval/golden.json")
     ev.add_argument("--strict", action="store_true")
+
+    rf = sub.add_parser("reflect", help="完場綠燈賽日：預測 vs 賽果 append 入 wiki")
+    rf.add_argument("--date", help="YYYY-MM-DD；缺席則取視窗內最近綠燈日")
+    rf.add_argument("--lookback-days", type=int, default=5)
+    rf.add_argument("--max-days", type=int, default=2, help="一次最多幾個完場日（禁回測充場）")
+    rf.add_argument("--model-version", default="tx-oracle-observation")
 
     q = sub.add_parser("query", help="查詢知識")
     q.add_argument("text", help="查詢句子")
@@ -76,10 +84,24 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if args.strict else 0
         return 1 if report.get("failed") else 0
 
+    if args.cmd == "reflect":
+        from agents.reflect_run import reflect_completed
+
+        report = reflect_completed(
+            date=args.date,
+            lookback_days=args.lookback_days,
+            max_days=args.max_days,
+            model_version=args.model_version,
+        )
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        if args.date and report.get("reason") == "no_green_results":
+            return 2
+        return 0 if report.get("ok") else 1
+
     if args.cmd == "query":
         hits = search(args.text, top_k=args.top_k, layer=args.layer)
         if not hits:
-            print("（no hits — 先跑 ingestion，再 python -m brain.cli compile && python -m brain.cli build）")
+            print(（no hits — 先跑 ingestion，再 python -m brain.cli compile && python -m brain.cli build）")
             return 1
 
         if args.answer:

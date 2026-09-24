@@ -6,6 +6,9 @@ Endpoints used:
   GET /api/analyze/hit-rate?date=
 
 Base URL via source.config.base_url (e.g. https://www.tianxi.racing).
+
+Chunks stamp race_date when the payload has one, so reflection can pair
+with completed results later. hit-rate is not ingested as fact.
 """
 
 from __future__ import annotations
@@ -61,8 +64,7 @@ def _summarize_race(race: dict[str, Any], meta: dict[str, Any] | None = None) ->
                 f"練馬師:{p.get('trainerCh') or p.get('trainer') or ''} "
                 f"檔:{p.get('draw') or ''}"
             )
-    # keep a short JSON tail for structured fans
-    lines.append("\n--- raw picks (截斷) ---")
+    lines.append("\n--- raw picks（截斷） ---")
     lines.append(json.dumps(picks[:5], ensure_ascii=False, default=str)[:2000])
     return "\n".join(lines)
 
@@ -122,6 +124,10 @@ class TianxiApiConnector:
             else:
                 races = [{"raw": data}]
 
+            race_date = None
+            if meta.get("date"):
+                race_date = str(meta["date"])[:10]
+
             for i, race in enumerate(races[:20]):
                 if not isinstance(race, dict):
                     continue
@@ -132,15 +138,18 @@ class TianxiApiConnector:
                     or f"race-{i+1}"
                 )
                 body = _summarize_race(race, meta)
+                rd = race_date or (str(race.get("date"))[:10] if race.get("date") else None)
                 chunks.append(
                     {
                         "source_id": self.source.id,
                         "title": str(title),
                         "content": body[:8000],
                         "content_hash": _content_hash(body),
+                        "race_date": rd,
                         "metadata": {
                             "endpoint": "/api/analyze/today-picks",
                             "index": i,
+                            "role": "prediction",
                             **{k: v for k, v in meta.items() if v is not None},
                         },
                     }
@@ -154,7 +163,8 @@ class TianxiApiConnector:
                         "title": "TX-Oracle today-picks (raw)",
                         "content": raw[:8000],
                         "content_hash": content_hash,
-                        "metadata": {"endpoint": "/api/analyze/today-picks"},
+                        "race_date": race_date,
+                        "metadata": {"endpoint": "/api/analyze/today-picks", "role": "prediction"},
                     }
                 )
                 items_new = 1
