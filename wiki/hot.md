@@ -28,7 +28,7 @@ Agent 開 session 先讀呢頁。Compile 會刷新「最近矛盾」同「最近
 ### 最近矛盾
 
 <!-- HOT:CONTRADICTIONS -->
-（未有未結矛盾）
+- [[race-2026-09-27]] 2026-09-27 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 
 ## 矛盾
 
