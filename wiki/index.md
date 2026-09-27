@@ -30,6 +30,7 @@ layer: knowledge
 ## 頁面
 
 <!-- COMPILE:PAGES -->
+- [[沙田]]（course · 2026-09-28）
 - [[冷熱偏]]（concept · 2026-09-27）
 - [[跑馬地]]（course · 2026-09-27）
 - [[一風雲]]（horse · 2026-09-27）
@@ -69,4 +70,3 @@ layer: knowledge
 - [[韋達]]（trainer · 2026-09-27）
 - [[黎昭昇]]（trainer · 2026-09-27）
 - [[race-2026-09-27]]（synthesis · 2026-09-27）
-- [[場地適性]]（concept · 2026-09-24）
