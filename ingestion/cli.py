@@ -19,6 +19,8 @@ from pathlib import Path
 from connectors.tianxi_api import TianxiApiConnector
 from connectors.tianxi_db import TianxiDbConnector
 from connectors.web_static import WebStaticConnector
+from connectors.style_crawl import StyleCrawlConnector
+from connectors.youtube_subs import YoutubeSubsConnector
 from ingestion.metrics import compute_health, write_health
 from ingestion.models import CrawlRun, RunStatus, Source, SourceType
 from ingestion.registry import find_source_by_id, load_sources_from_dir
@@ -85,6 +87,17 @@ def _feed_text(title: str, content: str, source_id: str = "manual", meta: dict |
     ]
 
 
+def _is_style_source(source) -> bool:
+    tags = source.domain_tags or []
+    cfg = source.config or {}
+    return (
+        "style" in tags
+        or cfg.get("purpose") == "style"
+        or str(source.id).startswith("style-")
+        or str(source.id).startswith("commentator-")
+    )
+
+
 def _run_source(source, args) -> int:
     if source.type == SourceType.DATABASE and "tianxi" in source.id:
         connector = TianxiDbConnector(source)
@@ -95,9 +108,45 @@ def _run_source(source, args) -> int:
     elif source.type == SourceType.API and "tianxi" in source.id:
         connector = TianxiApiConnector(source)
         run, chunks = connector.run()
+    elif source.type == SourceType.YOUTUBE:
+        connector = YoutubeSubsConnector(source)
+        run, chunks = connector.run()
+    elif source.type == SourceType.WEB_CRAWL and _is_style_source(source):
+        connector = StyleCrawlConnector(source)
+        run, chunks = connector.run()
     elif source.type == SourceType.WEB_CRAWL:
         connector = WebStaticConnector(source)
         run, chunks = connector.run()
+    elif source.type == SourceType.MANUAL and _is_style_source(source):
+        # Manual style sources: feed files listed in config.paths
+        from pathlib import Path as _P
+        paths = list((source.config or {}).get("paths") or [])
+        chunks = []
+        for raw in paths:
+            path = _P(raw)
+            if not path.is_absolute():
+                path = ROOT / path
+            if not path.exists():
+                continue
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            chunks.extend(
+                _feed_text(
+                    path.stem,
+                    text,
+                    source_id=source.id,
+                    meta={
+                        "kind": "style_article",
+                        "purpose": "style",
+                        "commentator": (source.config or {}).get("commentator") or source.id,
+                        "domain_tags": ["style", "commentary"],
+                        "path": str(path),
+                    },
+                )
+            )
+        status = RunStatus.SUCCESS if chunks else RunStatus.FAILED
+        return _save_run_and_chunks(
+            source.id, chunks, status, None if chunks else "no manual style files"
+        )
     else:
         print(f"No connector implemented yet for type={source.type} id={source.id}")
         return 1

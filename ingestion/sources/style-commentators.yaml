@@ -1,0 +1,67 @@
+# 風格來源（評馬人）— 範例檔
+# 複製做 style-commentators.yaml 再填真實 URL；預設全部 enabled: false，GHA 唔會真爬。
+# 詳見 docs/style-exemplars.md
+#
+# 欄位重點：
+#   id / name / type(web_crawl|rss|youtube|manual) / enabled / schedule
+#   config.commentator  — 穩定評馬人 id（檢索用）
+#   config.seed_urls / article_urls / listing_urls / channel_url
+#   config.max_items / delay_seconds / respect_robots
+#   domain_tags 必須含 style
+
+- id: style-example-web
+  name: "【範例】粵語評馬專欄（請換成真實來源）"
+  type: web_crawl
+  enabled: false
+  url: https://example.com/racing-column/
+  schedule: "0 3 * * 1"
+  priority: 6
+  domain_tags: [horse_racing, style, commentary, cantonese]
+  config:
+    purpose: style
+    commentator: example-cantonese-tipster
+    delay_seconds: 2.0
+    max_items: 15
+    max_chars: 14000
+    respect_robots: true
+    listing_urls:
+      - https://example.com/racing-column/
+    seed_urls: []
+    article_urls: []
+  notes: |
+    占位。Owner 提供 listing 或文章 URL 後先 enabled: true。
+    唔好開付費牆／要登入嘅來源。
+
+- id: style-example-youtube
+  name: "【範例】粵語評馬 YouTube（自動字幕）"
+  type: youtube
+  enabled: false
+  url: https://www.youtube.com/@example-racing
+  schedule: "0 3 * * 1"
+  priority: 7
+  domain_tags: [horse_racing, style, commentary, cantonese, youtube]
+  config:
+    purpose: style
+    commentator: example-youtube-tipster
+    channel_url: https://www.youtube.com/@example-racing
+    max_items: 8
+    max_chars: 14000
+    video_urls: []
+  notes: |
+    需要 yt-dlp（pip install -e ".[style]"）。只攞 auto-sub（zh-HK/yue/zh-Hant），唔下載片。
+
+- id: style-example-manual
+  name: "【範例】人手貼上認可評述"
+  type: manual
+  enabled: false
+  priority: 5
+  domain_tags: [horse_racing, style, commentary, manual]
+  config:
+    purpose: style
+    commentator: example-manual-voice
+    paths:
+      - ingestion/manual/style-fixtures/
+  notes: |
+    把 .md/.txt 放喺 paths 指嘅資料夾，再：
+    python -m ingestion.cli --source style-example-manual
+    （記得先 enabled: true 或者用 --feed-file 並喺 metadata 加 purpose=style）

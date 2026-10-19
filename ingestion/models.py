@@ -6,7 +6,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field
 
 
 class SourceType(str, Enum):
@@ -15,6 +15,7 @@ class SourceType(str, Enum):
     API = "api"
     DATABASE = "database"
     MANUAL = "manual"
+    YOUTUBE = "youtube"
 
 
 class RunStatus(str, Enum):

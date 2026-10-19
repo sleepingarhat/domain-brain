@@ -12,3 +12,8 @@
 
 每個 connector 輸出統一 chunks + metadata，並寫入 Crawl Run。  
 Chunks 由 `brain.cli build` 納入天喜腦本地索引。
+
+| `style_crawl.py` | ✅ | 評馬人文章（trafilatura，fallback web_static；robots + rate limit） |
+| `youtube_subs.py` | ✅ | YouTube 自動字幕（yt-dlp；zh-HK/yue/zh-Hant） |
+
+風格來源要喺 registry 標 `domain_tags: [style]` 或 `config.purpose: style`。見 `docs/style-exemplars.md`。
