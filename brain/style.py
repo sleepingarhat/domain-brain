@@ -17,7 +17,9 @@ from typing import Any
 from brain.store import ROOT, _tokenize
 
 STYLE_INDEX_DIR = ROOT / "brain" / "index"
-EXEMPLARS_PATH = STYLE_INDEX_DIR / "style_exemplars.json"
+# Commit-safe capped exemplars (PUBLIC repo policy) live under wiki/style/
+EXEMPLARS_PATH = ROOT / "wiki" / "style" / "exemplars.json"
+EXEMPLARS_FULL_PATH = STYLE_INDEX_DIR / "style_exemplars_full.json"
 PROFILES_DIR = ROOT / "wiki" / "style" / "profiles"
 STYLE_CHUNKS_MARKER = "style"
 
@@ -301,7 +303,12 @@ def build_exemplars(
 
 
 def load_exemplars(path: Path | None = None) -> list[dict[str, Any]]:
-    path = path or EXEMPLARS_PATH
+    """Load exemplars. Prefer explicit path; else full local cache, else commit-safe capped."""
+    if path is None:
+        if EXEMPLARS_FULL_PATH.exists():
+            path = EXEMPLARS_FULL_PATH
+        else:
+            path = EXEMPLARS_PATH
     if not path.exists():
         return []
     data = json.loads(path.read_text(encoding="utf-8"))

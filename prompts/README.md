@@ -12,3 +12,4 @@
 | 05 | [eval](05-eval.md) | read-only | 無（改 golden 要批） |
 | 06 | [style-draft](06-style-draft.md) | append | `wiki/style/` 草稿；發佈人手批 |
 | 07 | [style-commentary](07-style-commentary.md) | read-only / draft | 無或 `wiki/style/` 草稿；發佈人手批 |
+| 08 | [knowledge-article](08-knowledge-article.md) | read-only / draft | 非賽日知識短文；發佈人手批 |

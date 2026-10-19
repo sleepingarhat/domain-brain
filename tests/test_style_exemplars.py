@@ -128,11 +128,12 @@ def test_overlap_reject():
     assert hits2 == []
 
 
-def test_source_registry_loads_disabled_style():
+def test_source_registry_loads_style_sources():
     from ingestion.registry import load_sources_from_dir
     from pathlib import Path as P
 
     sources = load_sources_from_dir(P("ingestion/sources"))
     style = [s for s in sources if "style" in (s.domain_tags or []) or s.id.startswith("style-")]
-    assert style, "expected disabled style placeholders in registry"
-    assert all(s.enabled is False for s in style)
+    assert style, "expected style sources in registry"
+    assert any(s.id == "style-horsetrio" for s in style)
+    # placeholders may be enabled after owner sources are wired

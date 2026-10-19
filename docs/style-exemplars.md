@@ -79,3 +79,9 @@ python -m brain.cli style-check --text '你嘅草稿…' --situation 大熱門 -
 - 唔過 paywall、唔用登入 cookie
 - 尊重 robots.txt
 - 倉內原文只供風格學習；對外帖文禁止大段照抄
+
+
+## PUBLIC 倉版權政策
+
+`sleepingarhat/domain-brain` 若係 **PUBLIC**：全文只存 `ingestion/private/`（gitignore）；git 只收知識摘要 chunk、`wiki/style/exemplars.json`（每段 ≤200 字 + URL）、同 `wiki/style/profiles/`。
+排程用本機 `scripts/style_refresh.sh`，唔好喺 Actions commit 原文。

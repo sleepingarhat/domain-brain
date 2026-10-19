@@ -1,67 +1,123 @@
-# 風格來源（評馬人）— 範例檔
-# 複製做 style-commentators.yaml 再填真實 URL；預設全部 enabled: false，GHA 唔會真爬。
-# 詳見 docs/style-exemplars.md
-#
-# 欄位重點：
-#   id / name / type(web_crawl|rss|youtube|manual) / enabled / schedule
-#   config.commentator  — 穩定評馬人 id（檢索用）
-#   config.seed_urls / article_urls / listing_urls / channel_url
-#   config.max_items / delay_seconds / respect_robots
-#   domain_tags 必須含 style
+# 風格／知識來源（粵語評馬人）
+# PUBLIC 倉：全文入 ingestion/private/（gitignore）；只 commit 知識摘要 + ≤200字 excerpt + profiles
+# 見 docs/style-exemplars.md
 
-- id: style-example-web
-  name: "【範例】粵語評馬專欄（請換成真實來源）"
+- id: style-horsetrio
+  name: HorseTrio 賽前分析／戰報／識馬學堂
   type: web_crawl
-  enabled: false
-  url: https://example.com/racing-column/
-  schedule: "0 3 * * 1"
-  priority: 6
-  domain_tags: [horse_racing, style, commentary, cantonese]
+  enabled: true
+  url: https://horsetrio.com/
+  schedule: "0 2 * * *"
+  priority: 4
+  domain_tags: [horse_racing, style, knowledge, commentary, cantonese]
   config:
     purpose: style
-    commentator: example-cantonese-tipster
-    delay_seconds: 2.0
-    max_items: 15
+    commentator: horsetrio
+    delay_seconds: 2.2
+    max_items: 80
     max_chars: 14000
     respect_robots: true
     listing_urls:
-      - https://example.com/racing-column/
-    seed_urls: []
-    article_urls: []
+      - https://horsetrio.com/posts
+      - https://horsetrio.com/sitemap.xml
+    seed_urls:
+      - https://horsetrio.com/learn/1
+      - https://horsetrio.com/learn/2
+      - https://horsetrio.com/learn/3
+      - https://horsetrio.com/study/1
+      - https://horsetrio.com/study/2
   notes: |
-    占位。Owner 提供 listing 或文章 URL 後先 enabled: true。
-    唔好開付費牆／要登入嘅來源。
+    公開可讀。sitemap 有逐場 /posts/MTG_*/r/N 同 learn/study。
+    歷史深度視 sitemap（目前約兩週賽日 + 學堂文）。用 scripts/crawl_style_sources.py 做增量。
 
-- id: style-example-youtube
-  name: "【範例】粵語評馬 YouTube（自動字幕）"
+- id: style-hkdn-racing
+  name: 新報馬頁 HKDN Racing（馬場教父等公開新聞）
+  type: web_crawl
+  enabled: true
+  url: https://hkdnracing.com/zh
+  schedule: "30 2 * * *"
+  priority: 4
+  domain_tags: [horse_racing, style, knowledge, commentary, cantonese]
+  config:
+    purpose: style
+    commentator: hkdn-教父
+    delay_seconds: 2.2
+    max_items: 40
+    respect_robots: true
+    listing_urls:
+      - https://hkdnracing.com/zh/news
+      - https://hkdnracing.com/zh
+    seed_urls: []
+  notes: |
+    /zh/news 公開新聞可讀。hkdnform.com/zh/tips 偏會員／動態，唔自動爬貼士牆。
+
+- id: style-oncc-racing
+  name: 東網馬經 racing.on.cc（晨操／名家推介）
+  type: web_crawl
+  enabled: true
+  url: https://racing.on.cc/
+  schedule: "0 1 * * 0,3"  # 賽日前朝（日／三近似）
+  priority: 5
+  domain_tags: [horse_racing, style, knowledge, commentary, cantonese]
+  config:
+    purpose: style
+    commentator: oncc-馬經
+    delay_seconds: 2.5
+    max_items: 20
+    respect_robots: true
+    seed_urls:
+      - https://racing.on.cc/
+      - https://racing.on.cc/racing/mor/current/rjmora0001x0.html
+      - https://racing.on.cc/racing/mor/current/rjmorb0001x0.html
+      - https://racing.on.cc/racing/mor/current/rjmorc0001x0.html
+      - https://racing.on.cc/racing/fav/current/rjfavg0001x0.html
+  notes: |
+    robots 允許一般 UA。頁面 Big5。深層歷史 archive URL 不穩定，以 current + 增量為主。
+
+- id: style-youtube-dami
+  name: YouTube 大米講馬（自動字幕）
   type: youtube
-  enabled: false
-  url: https://www.youtube.com/@example-racing
-  schedule: "0 3 * * 1"
+  enabled: true
+  url: https://www.youtube.com/channel/UCtsYxC1zCclLuBC8XOxW5zw
+  schedule: "0 4 * * 1"
+  priority: 6
+  domain_tags: [horse_racing, style, commentary, cantonese, youtube]
+  config:
+    purpose: style
+    commentator: 大米講馬
+    channel_url: https://www.youtube.com/channel/UCtsYxC1zCclLuBC8XOxW5zw/videos
+    max_items: 20
+  notes: |
+    公開片多數有自動字幕；標「會員版」嘅常無字幕會 skip。
+
+- id: style-youtube-leung
+  name: YouTube 梁西華講馬經（自動字幕，若有）
+  type: youtube
+  enabled: true
+  url: https://www.youtube.com/channel/UCrRUvqYlcLl9vETA3tnFIBw
+  schedule: "30 4 * * 1"
   priority: 7
   domain_tags: [horse_racing, style, commentary, cantonese, youtube]
   config:
     purpose: style
-    commentator: example-youtube-tipster
-    channel_url: https://www.youtube.com/@example-racing
-    max_items: 8
-    max_chars: 14000
-    video_urls: []
+    commentator: 梁西華講馬經
+    channel_url: https://www.youtube.com/channel/UCrRUvqYlcLl9vETA3tnFIBw/videos
+    max_items: 20
   notes: |
-    需要 yt-dlp（pip install -e ".[style]"）。只攞 auto-sub（zh-HK/yue/zh-Hant），唔下載片。
+    2026-10 探測：近期片多數無 zh auto-sub，爬蟲會 skip。保留 enabled 以便日後有字幕先入庫。
 
-- id: style-example-manual
-  name: "【範例】人手貼上認可評述"
-  type: manual
-  enabled: false
-  priority: 5
-  domain_tags: [horse_racing, style, commentary, manual]
+- id: style-youtube-leimin
+  name: YouTube 喱民頻道（喘民→喱民 Kennie）
+  type: youtube
+  enabled: true
+  url: https://www.youtube.com/channel/UCar1cXEurmG5tNsrrYpyq4A
+  schedule: "0 5 * * 1"
+  priority: 7
+  domain_tags: [horse_racing, style, commentary, cantonese, youtube]
   config:
     purpose: style
-    commentator: example-manual-voice
-    paths:
-      - ingestion/manual/style-fixtures/
+    commentator: 喱民頻道
+    channel_url: https://www.youtube.com/channel/UCar1cXEurmG5tNsrrYpyq4A/videos
+    max_items: 20
   notes: |
-    把 .md/.txt 放喺 paths 指嘅資料夾，再：
-    python -m ingestion.cli --source style-example-manual
-    （記得先 enabled: true 或者用 --feed-file 並喺 metadata 加 purpose=style）
+    Owner 寫「喘民」；搜尋對應為 Kennie 喱民頻道。多數會員片無公開字幕 → skip。
