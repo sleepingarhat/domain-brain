@@ -19,3 +19,5 @@ Job: style-draft
 3. 草稿寫入 `wiki/style/` 新檔或追加段落。`status: draft`。
 4. 唔移出 `wiki/style/`、唔呼發佈 API、唔改實體結論。
 5. 結束列出用過邊些來源頁，等人批發。
+
+相關：賽前自動評述卡見 [`07-style-commentary.md`](07-style-commentary.md)；exemplars 見 `docs/style-exemplars.md`。

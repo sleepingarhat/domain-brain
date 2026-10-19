@@ -15,7 +15,8 @@ dependencies = [
 
 [project.optional-dependencies]
 mem0 = ["mem0ai>=0.1.0"]
-dev = ["ruff>=0.6"]
+style = ["trafilatura>=1.12", "yt-dlp>=2024.8.0"]
+dev = ["ruff>=0.6", "pytest>=8.0"]
 
 [project.scripts]
 domain-brain-run = "ingestion.cli:main"
@@ -28,3 +29,6 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["ingestion*", "connectors*", "agents*", "brain*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

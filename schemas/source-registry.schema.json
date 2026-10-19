@@ -19,7 +19,7 @@
     },
     "type": {
       "type": "string",
-      "enum": ["web_crawl", "rss", "api", "database", "manual"],
+      "enum": ["web_crawl", "rss", "api", "database", "manual", "youtube"],
       "description": "Source type"
     },
     "enabled": {

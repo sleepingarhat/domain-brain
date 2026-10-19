@@ -1,0 +1,36 @@
+name: Crawl Style Exemplars
+
+# PUBLIC repo: never commit ingestion/private/ raw text.
+# This workflow only refreshes commit-safe artefacts if a self-hosted path is added later.
+# Default: list enabled sources + no-op note. Heavy crawl runs on the box via scripts/style_refresh.sh.
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: style-exemplars
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e ".[style]"
+      - name: List enabled style sources
+        run: |
+          python -m ingestion.cli --list | tee /tmp/sources.txt
+          grep -E 'style-' /tmp/sources.txt || true
+      - name: Reminder
+        run: |
+          echo "PUBLIC repo: raw crawls must stay on the box (scripts/style_refresh.sh)."
+          echo "Do not upload ingestion/private/ as artefacts containing verbatim articles."

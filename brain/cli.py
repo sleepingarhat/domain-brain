@@ -8,6 +8,8 @@ Examples:
   python -m brain.cli reflect
   python -m brain.cli reflect --date 2026-09-21
   python -m brain.cli query "7月15日跑馬地賽果"
+  python -m brain.cli style-build
+  python -m brain.cli style --situation 大熱門 --k 5
 """
 
 from __future__ import annotations
@@ -48,6 +50,30 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="若已設 OPENAI_API_KEY，用檢索結果生成精簡答覆",
     )
+
+
+    sb = sub.add_parser("style-build", help="由 style chunks 編譯 exemplars + 統計風格檔案")
+    sb.add_argument("--no-profiles", action="store_true", help="唔寫 wiki/style/profiles")
+
+    st = sub.add_parser("style", help="檢索風格 exemplar 段落")
+    st.add_argument("--situation", default=None, help="大熱門／混戰／冷馬有價／新馬或初出／距離或場地轉變／其他")
+    st.add_argument("--commentator", default=None, help="source id 或 commentator id")
+    st.add_argument("--query", default=None, help="額外關鍵詞（可選）")
+    st.add_argument("--k", type=int, default=5)
+    st.add_argument(
+        "--from-frozen",
+        type=str,
+        default=None,
+        help="凍結 JSON 路徑；配合 --race 自動判斷 situation",
+    )
+    st.add_argument("--race", type=int, default=None, help="場次（配合 --from-frozen）")
+
+    sc = sub.add_parser("style-check", help="檢查草稿有冇 verbatim 抄 exemplar（≥12 字）")
+    sc.add_argument("--text", required=True, help="待檢查嘅評述正文")
+    sc.add_argument("--situation", default=None)
+    sc.add_argument("--commentator", default=None)
+    sc.add_argument("--k", type=int, default=20, help="對照最近檢索到嘅 exemplars 數量")
+    sc.add_argument("--min-chars", type=int, default=12)
 
     args = parser.parse_args(argv)
 
@@ -128,6 +154,51 @@ def main(argv: list[str] | None = None) -> int:
             preview = h.content if len(h.content) < 1200 else h.content[:1200] + "\n..."
             print(preview)
         return 0
+
+    if args.cmd == "style-build":
+        from brain.style import build_exemplars
+
+        info = build_exemplars(write_profiles=not args.no_profiles)
+        print(json.dumps(info, ensure_ascii=False, indent=2))
+        return 0 if info.get("exemplar_count") else 1
+
+    if args.cmd == "style":
+        from brain.style import classify_race_from_frozen, retrieve_exemplars
+
+        situation = args.situation
+        if args.from_frozen and args.race is not None:
+            situation = classify_race_from_frozen(args.from_frozen, args.race)
+            print(f"[situation] {situation}  (from {args.from_frozen} race {args.race})")
+        hits = retrieve_exemplars(
+            situation=situation,
+            commentator=args.commentator,
+            query=args.query or situation,
+            k=args.k,
+        )
+        if not hits:
+            print("(no style exemplars — crawl style sources, then python -m brain.cli style-build)")
+            return 1
+        for i, h in enumerate(hits, 1):
+            print(f"\n===== #{i}  score={h.score}  situation={h.situation}  commentator={h.commentator} =====")
+            print(f"id: {h.id}")
+            if h.url:
+                print(f"url: {h.url}")
+            print(h.text if len(h.text) < 800 else h.text[:800] + "\n...")
+        return 0
+
+    if args.cmd == "style-check":
+        from brain.style import reject_if_verbatim, retrieve_exemplars
+
+        exemplars = retrieve_exemplars(
+            situation=args.situation,
+            commentator=args.commentator,
+            query=args.situation,
+            k=args.k,
+        )
+        ok, hits = reject_if_verbatim(args.text, exemplars, min_chars=args.min_chars)
+        print(json.dumps({"ok": ok, "hits": hits}, ensure_ascii=False, indent=2))
+        return 0 if ok else 2
+
 
     return 1
 

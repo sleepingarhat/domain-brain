@@ -14,6 +14,7 @@ ingestion/metrics/*.json
 
 # Local rebuilt index
 brain/index/
+# (includes style_exemplars.json)
 
 # Secrets
 .env
@@ -24,3 +25,8 @@ brain/index/
 .vscode/
 .DS_Store
 *.swp
+
+# Private full-text crawls (PUBLIC repo: never commit raw articles/subs)
+ingestion/private/
+logs/
+brain/index/style_exemplars_full.json
