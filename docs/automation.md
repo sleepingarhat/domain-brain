@@ -23,3 +23,8 @@ chunks 保 21 日。index 不入倉。
 Actions → **Brain Daily** → Run workflow → `card` / `results` / `full`。
 
 舊的 01 / 02 / 03 保 `workflow_dispatch`，日程已關，免重複跑。
+
+## 風格 exemplars
+
+`.github/workflows/04-crawl-style-exemplars.yml`：每週一 + 手動。  
+所有 `style-*` source 預設 `enabled: false`，無 URL 時係 no-op。詳見 [style-exemplars.md](style-exemplars.md)。

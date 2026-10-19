@@ -20,6 +20,7 @@
 
 詳見 [docs/automation.md](docs/automation.md)。  
 風格草稿、社交發佈、凍結預測 **不自動**。
+風格 exemplars（評馬人聲線）見 [docs/style-exemplars.md](docs/style-exemplars.md)；workflow `04-crawl-style-exemplars` 喺未開 source 前係 no-op。
 
 舊的 01 / 02 / 03 只保手動跑。
 

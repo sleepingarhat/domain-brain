@@ -1,0 +1,88 @@
+name: Crawl Style Exemplars
+
+# Harmless while all style sources stay enabled: false.
+# Enable individual commentators in ingestion/sources/style-commentators.yaml after owner supplies URLs.
+
+on:
+  schedule:
+    # Monday 11:00 HKT (03:00 UTC)
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: style-exemplars
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install -e ".[style]"
+
+      - name: List style sources
+        run: |
+          python -m ingestion.cli --list | tee /tmp/sources.txt
+          grep -E 'style-|commentator-' /tmp/sources.txt || echo "(no style sources registered)"
+
+      - name: Crawl enabled style sources
+        run: |
+          set +e
+          crawled=0
+          while IFS= read -r line; do
+            # lines look like: [ON ] p6  style-foo ...
+            echo "$line" | grep -q '^\[ON ' || continue
+            id=$(echo "$line" | awk '{print $3}')
+            case "$id" in
+              style-*|commentator-*)
+                echo ">>> crawling $id"
+                python -m ingestion.cli --source "$id" || true
+                crawled=$((crawled+1))
+                ;;
+            esac
+          done < <(python -m ingestion.cli --list)
+          echo "crawled=$crawled"
+          if [ "$crawled" -eq 0 ]; then
+            echo "No enabled style sources — nothing to do (placeholder mode)."
+          fi
+
+      - name: style-build
+        run: python -m brain.cli style-build || true
+
+      - name: Commit style memory
+        run: |
+          git config user.name "tianxi-brain-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p ingestion/chunks wiki/style
+          git add ingestion/chunks wiki/style
+          if git diff --staged --quiet; then
+            echo "no style memory changes"
+            exit 0
+          fi
+          hk=$(TZ=Asia/Hong_Kong date +%F_%H%M)
+          git commit -m "style: crawl/build ${hk}"
+          git pull --rebase --autostash origin main || git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Upload artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: style-exemplars-${{ github.run_id }}
+          path: |
+            brain/index/style_exemplars.json
+            wiki/style/
+            ingestion/chunks/
+            ingestion/metrics/
+          if-no-files-found: warn
+          retention-days: 14
