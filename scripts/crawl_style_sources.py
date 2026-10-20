@@ -440,6 +440,41 @@ def crawl_youtube(c: Crawler, channel_id: str, source_id: str, commentator: str,
     return articles
 
 
+def _all_private_full_chunks(new_articles: list[dict]) -> list[dict]:
+    """Full-text chunks for every article in ingestion/private/raw (+ this run)."""
+    by_url: dict[str, dict] = {}
+    for f in sorted(PRIVATE_RAW.glob("*.json")) if PRIVATE_RAW.exists() else []:
+        try:
+            r = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        url, body = r.get("url"), r.get("content") or ""
+        if not url or not body:
+            continue
+        meta = r.get("metadata") or {}
+        commentator = (meta.get("commentator") if isinstance(meta, dict) else None) or r.get("source_id")
+        by_url[url] = {
+            "source_id": r.get("source_id"),
+            "title": r.get("title") or "",
+            "body": body,
+            "commentator": commentator,
+            "url": url,
+        }
+    for art in new_articles:
+        by_url[art["url"]] = art
+    return [
+        {
+            "id": f"private:{_hash(a['url'])}",
+            "source_id": a["source_id"],
+            "title": a["title"],
+            "content": a["body"],
+            "content_hash": _hash(a["body"]),
+            "metadata": style_chunk_meta(a["source_id"], a["commentator"], a["url"], a["title"]),
+        }
+        for a in by_url.values()
+    ]
+
+
 def write_outputs(articles: list[dict]) -> dict[str, Any]:
     """Write knowledge chunks + style article stubs into ingestion/chunks."""
     from brain.style import split_paragraphs, tag_situation, build_exemplars
@@ -474,25 +509,16 @@ def write_outputs(articles: list[dict]) -> dict[str, Any]:
 
     kpath = CHUNKS_DIR / f"{run_id}-style-knowledge.json"
     spath = CHUNKS_DIR / f"{run_id}-style-excerpts.json"
-    kpath.write_text(json.dumps(knowledge, ensure_ascii=False, indent=2), encoding="utf-8")
-    spath.write_text(json.dumps(style_articles, ensure_ascii=False, indent=2), encoding="utf-8")
+    # Incremental runs with nothing new: don't write empty chunk files.
+    if articles:
+        kpath.write_text(json.dumps(knowledge, ensure_ascii=False, indent=2), encoding="utf-8")
+        spath.write_text(json.dumps(style_articles, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # Build FULL exemplars from private raw (for local style-check quality),
     # then write capped commit-safe exemplars.
-    full_chunks = []
-    for art in articles:
-        full_chunks.append(
-            {
-                "id": f"private:{_hash(art['url'])}",
-                "source_id": art["source_id"],
-                "title": art["title"],
-                "content": art["body"],
-                "content_hash": _hash(art["body"]),
-                "metadata": style_chunk_meta(
-                    art["source_id"], art["commentator"], art["url"], art["title"]
-                ),
-            }
-        )
+    # Exemplars/profiles are rebuilt from the WHOLE private raw store (not just
+    # this run's new articles), so incremental runs never wipe earlier exemplars.
+    full_chunks = _all_private_full_chunks(articles)
     full_path = ROOT / "brain" / "index" / "style_exemplars_full.json"
     info_full = build_exemplars(full_chunks, out_path=full_path, write_profiles=True)
 
