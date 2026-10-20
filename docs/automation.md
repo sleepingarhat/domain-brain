@@ -9,7 +9,7 @@
 | 時間 | slot | 做哎 |
 |------|------|------|
 | 12:00 | card | `tianxi-api` today-picks → compile → commit `wiki/` + `ingestion/chunks/` |
-| 01:30 | results | `tianxi-database` + 公開評論 → compile → reflect（5 日視窗、最多 2 個綠燈日）→ build/lint/eval → commit |
+| 01:30 | results | `tianxi-database` + 公開評論 + `tianxi-repos`（天喜產品倉文件，見 [tianxi-system-knowledge.md](tianxi-system-knowledge.md)）→ compile → reflect（5 日視窗、最多 2 個綠燈日）→ build/lint/eval → commit |
 
 無賽日：reflect skip，不失敗。無變化不 commit。
 

@@ -63,7 +63,29 @@ class Mention:
     extras: dict[str, str] = field(default_factory=dict)
 
 
+def _repo_doc_mentions(chunk: dict[str, Any]) -> list[Mention]:
+    """天喜產品倉文件：唔抽馬／騎／練／場，只喺來源頁記一條「文件更新」觀察。"""
+    meta = chunk.get("metadata") or {}
+    repo = str(meta.get("repo") or "?")
+    path = str(meta.get("path") or "?")
+    commit = meta.get("commit")
+    fetched = str(meta.get("fetched_at") or "")[:10] or None
+    ref = f"{repo}/{path}" + (f" @{commit}" if commit else "")
+    return [
+        Mention(
+            kind="source",
+            name="tianxi-repos",
+            race_date=fetched,
+            source_id=chunk.get("source_id") or "tianxi-repos",
+            snippet=f"文件更新 {ref}",
+            extras={"role": "repo_doc", "content_hash": str(chunk.get("content_hash") or "")},
+        )
+    ]
+
+
 def extract_mentions(chunk: dict[str, Any]) -> list[Mention]:
+    if (chunk.get("metadata") or {}).get("kind") == "repo_doc":
+        return _repo_doc_mentions(chunk)
     title = str(chunk.get("title") or "")
     content = str(chunk.get("content") or "")
     text = f"{title}\n{content}"

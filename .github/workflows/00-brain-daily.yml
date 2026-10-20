@@ -69,6 +69,12 @@ jobs:
           python -m ingestion.cli --source idol-horse || true
           python -m ingestion.cli --source the-standard-inside-track || true
 
+      - name: Refresh Tianxi product docs (tianxi-repos)
+        if: steps.slot.outputs.slot != 'card'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -m ingestion.cli --source tianxi-repos || true
+
       - name: compile wiki
         run: python -m brain.cli compile
         continue-on-error: true

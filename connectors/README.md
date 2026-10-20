@@ -17,3 +17,4 @@ Chunks 由 `brain.cli build` 納入天喜腦本地索引。
 | `youtube_subs.py` | ✅ | YouTube 自動字幕（yt-dlp；zh-HK/yue/zh-Hant） |
 
 風格來源要喺 registry 標 `domain_tags: [style]` 或 `config.purpose: style`。見 `docs/style-exemplars.md`。
+| `github_docs.py` | ✅ | `tianxi-repos`：公開倉 README／docs／commit 標題（敏感行剔走、只寫有變動）。見 `docs/tianxi-system-knowledge.md` |
