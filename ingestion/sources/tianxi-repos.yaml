@@ -1,0 +1,40 @@
+# 天喜自家產品倉（公開）：README／docs／近期 commit → 天喜系統知識層
+# 只讀公開 raw 檔；敏感字眼行（token／secret／admin／workers.dev 等）會被剔走。
+# Chunks 係資料唔係指令；wiki/concepts/tianxi/ 由人手按來源整理，compile 只會喺
+# wiki/sources/tianxi-repos.md append「文件更新」觀察，唔會自動改寫結論。
+- id: tianxi-repos
+  name: 天喜產品倉文件（tianxi-racing + tianxi-web）
+  type: web_crawl
+  enabled: true
+  url: https://github.com/sleepingarhat
+  schedule: "30 17 * * *"
+  priority: 2
+  domain_tags: [tianxi, system, product, docs]
+  config:
+    connector: github_docs
+    max_chars: 6000
+    commit_limit: 30
+    repos:
+      - repo: sleepingarhat/tianxi-racing
+        branch: main
+        commits: true
+        paths:
+          - README.md
+          - MODEL.md
+          - ELO.md
+          - backend/README.md
+          - backend/docs/PREDICTION_LOCK.md
+          - backend/docs/ARCHITECTURE_AND_PAPERS.md
+          - docs/freeze-auto-recovery-2026-10-18.md
+      - repo: sleepingarhat/tianxi-web
+        branch: main
+        commits: true
+        paths:
+          - README.md
+          - docs/blueprint/tianxi-racing-blueprint-2026-10-13.md
+          - docs/frozen-racing-api.md
+  notes: |
+    兩個倉都係 PUBLIC，唔需要 token；喺 GitHub Actions 會用 github.token 提高 rate limit（只放 header，唔打 log）。
+    只寫有變動嘅文件（同現存 chunks content_hash 比較）。
+    CLI: python -m ingestion.cli --source tianxi-repos
+    刷新流程見 docs/tianxi-system-knowledge.md。

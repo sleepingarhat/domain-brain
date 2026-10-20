@@ -28,6 +28,7 @@ Agent 開 session 先讀呢頁。Compile 會刷新「最近矛盾」同「最近
 ### 最近矛盾
 
 <!-- HOT:CONTRADICTIONS -->
+- [[開發歷程]] 2026-10-20 · tianxi-repos · README 舊表「生態系統 3 repos」同 backend/README 生態表仍列已封存倉（tianxi-marksix 等）；屬歷史描述。
 - [[race-2026-09-27]] 2026-09-27 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 - [[race-2026-10-01]] 2026-10-01 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 - [[race-2026-10-04]] 2026-10-04 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）

@@ -21,6 +21,7 @@ from connectors.tianxi_db import TianxiDbConnector
 from connectors.web_static import WebStaticConnector
 from connectors.style_crawl import StyleCrawlConnector
 from connectors.youtube_subs import YoutubeSubsConnector
+from connectors.github_docs import GithubDocsConnector
 from ingestion.metrics import compute_health, write_health
 from ingestion.models import CrawlRun, RunStatus, Source, SourceType
 from ingestion.registry import find_source_by_id, load_sources_from_dir
@@ -99,7 +100,10 @@ def _is_style_source(source) -> bool:
 
 
 def _run_source(source, args) -> int:
-    if source.type == SourceType.DATABASE and "tianxi" in source.id:
+    if (source.config or {}).get("connector") == "github_docs":
+        connector = GithubDocsConnector(source)
+        run, chunks = connector.run()
+    elif source.type == SourceType.DATABASE and "tianxi" in source.id:
         connector = TianxiDbConnector(source)
         run, chunks = connector.run(
             lookback_days=args.lookback_days,
@@ -156,7 +160,10 @@ def _run_source(source, args) -> int:
     run_path = RUNS_DIR / f"{run.run_id}.json"
     run_path.write_text(run.model_dump_json(indent=2), encoding="utf-8")
     chunks_path = CHUNKS_DIR / f"{run.run_id}.json"
-    chunks_path.write_text(json.dumps(chunks, ensure_ascii=False, indent=2), encoding="utf-8")
+    if chunks or run.status != RunStatus.SKIPPED:
+        chunks_path.write_text(json.dumps(chunks, ensure_ascii=False, indent=2), encoding="utf-8")
+    else:
+        chunks_path = Path("(no changes; chunks file not written)")
     health = compute_health(RUNS_DIR, source.id)
     health_path = write_health(health, METRICS_DIR)
     print(f"status        : {run.status.value}")
@@ -169,7 +176,7 @@ def _run_source(source, args) -> int:
     if run.error_message:
         print(f"error         : {run.error_message}")
     print("下一步: python -m brain.cli build")
-    return 0 if run.status.value in ("success", "partial") else 1
+    return 0 if run.status.value in ("success", "partial", "skipped") else 1
 
 
 def main(argv: list[str] | None = None) -> int:

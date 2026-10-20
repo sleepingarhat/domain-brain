@@ -28,7 +28,12 @@ def _obs_line(m: Mention) -> str:
     when = m.race_date or today_hk()
     src = m.source_id or "unknown"
     role = m.extras.get("role")
-    tag = "預測" if role == "prediction" or src == "tianxi-api" else "賽果"
+    if role == "repo_doc":
+        tag = "文件"
+    elif role == "prediction" or src == "tianxi-api":
+        tag = "預測"
+    else:
+        tag = "賽果"
     extra = ""
     if m.kind == "horse":
         bits = []
@@ -98,7 +103,11 @@ def compile_chunks(chunks: list[dict[str, Any]] | None = None) -> dict[str, Any]
             is_new = not page.path.exists()
             line = _obs_line(m)
             digest = observation_hash(
-                m.kind, m.name, m.race_date or "", m.source_id or "", m.snippet or line
+                m.kind,
+                m.name,
+                m.race_date or "",
+                m.source_id or "",
+                (m.snippet or line) + (m.extras.get("content_hash") or ""),
             )
             wrote = page.append_observation(line, digest)
             cache[key] = page

@@ -268,9 +268,13 @@ def wiki_as_docs(wiki_dir: Path | None = None) -> list[dict[str, Any]]:
     """Flatten wiki pages into BM25 documents."""
     docs: list[dict[str, Any]] = []
     for page in iter_pages(wiki_dir):
+        aliases = page.meta.get("aliases") or []
+        if not isinstance(aliases, list):
+            aliases = [str(aliases)]
         body = "\n".join(
             [
                 page.title,
+                " ".join(str(a) for a in aliases),
                 page.sections.get("結論") or "",
                 page.sections.get("觀察") or "",
                 page.sections.get("矛盾") or "",

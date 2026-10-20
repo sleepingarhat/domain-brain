@@ -17,6 +17,7 @@ Compile／reflection／人手寫入前對呢張表。唔好開重複實體。
 ## 結論
 
 - 2026-09-24 · 一頁一實體。賽事唔開永久頁。凍結預測永不入 wiki 當事實。
+- 2026-10-20 · 天喜自家產品知識集中喺 `wiki/concepts/tianxi/`（type: concept），唔另開近義重複頁。
 
 ## 觀察
 
@@ -31,6 +32,8 @@ Compile／reflection／人手寫入前對呢張表。唔好開重複實體。
 | 賽日回顧 | `wiki/synthesis/race-YYYY-MM-DD.md` | 項目層，會冷 |
 | 單場賽事 | **唔開頁** | 結構化賽果留表／chunks |
 | 凍結預測、hit-rate、today-picks、模型指紋 | **永不 ingest** | 公開口徑；最多當觀察並記矛盾 |
+| 天喜自家產品（引擎、架構、開發歷程、網站、社群、Q&A、宣傳守則） | `wiki/concepts/tianxi/<名>.md` | 只按 `tianxi-repos` 來源／公開頁整理；唔清楚寫「待確認」；唔入命中率、指紋、密鑰、內部端點 |
+| 天喜產品倉文件更新 | `wiki/sources/tianxi-repos.md` | compile 只 append「文件更新」觀察；知識頁人手覆核 |
 | 社交草稿／聲線 | `wiki/style/` | 發佈人手批 |
 | 工作規則 | `AGENTS.md` `wiki/RULES.md` | 唔入實體頁 |
 
