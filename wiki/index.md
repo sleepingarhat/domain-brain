@@ -43,6 +43,7 @@ layer: knowledge
 ## 頁面
 
 <!-- COMPILE:PAGES -->
+- [[冷熱偏]]（concept · 2026-10-21）
 - [[沙田]]（course · 2026-10-21）
 - [[君智盛]]（horse · 2026-10-21）
 - [[堅闖]]（horse · 2026-10-21）
@@ -82,4 +83,3 @@ layer: knowledge
 - [[蘇偉賢]]（trainer · 2026-10-21）
 - [[鄭俊偉]]（trainer · 2026-10-21）
 - [[韋達]]（trainer · 2026-10-21）
-- [[天喜問答]]（concept · 2026-10-20）

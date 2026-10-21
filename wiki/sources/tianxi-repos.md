@@ -46,6 +46,10 @@ layer: knowledge
 - 2026-10-21 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @7a0766f1 · hash:248c800f95a3
 - 2026-10-21 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @7a0766f1 · hash:4e4a48a112b6
 - 2026-10-21 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:52a80f2e128e
+- 2026-10-21 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:2b11cd36af5d
+- 2026-10-21 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @45392cfd · hash:e03957906bda
+- 2026-10-21 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @45392cfd · hash:fd73c64e370e
+- 2026-10-21 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:65232edd89e3
 
 ## 矛盾
 
