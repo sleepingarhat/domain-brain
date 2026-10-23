@@ -8,7 +8,7 @@ aliases:
   - tianxi-web
 sources:
   - tianxi-repos
-updated: 2026-10-23
+updated: 2026-10-24
 status: active
 layer: knowledge
 ---
@@ -25,8 +25,7 @@ layer: knowledge
 
 ## 觀察
 
-- 2026-10-20 · tianxi-repos · 開頁：首次人手整理，來源快照 tianxi-racing f467acb7、tianxi-web 2f029b3；公開 API engine-health／freeze-ledger／lock-state／frozen-racing 2026-10-20 讀取。 · hash:2c76e22813b7
-- 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @f467acb7 · hash:67a9a9939526
+（較早 2 條觀察已截斷，矛盾區保留）
 - 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @f467acb7 · hash:2de117f54bf6
 - 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @f467acb7 · hash:69774812cbea
 - 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @f467acb7 · hash:8a0f0f00ff0c
@@ -64,6 +63,9 @@ layer: knowledge
 - 2026-10-23 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:907cdbb5c19c
 - 2026-10-23 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:e54e88663d07
 - 2026-10-23 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:d9e2616f848e
+- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @8687b66b · hash:f418ed06b5c2
+- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @8687b66b · hash:71d75b89642a
+- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:f3a16af9e0b2
 
 ## 矛盾
 

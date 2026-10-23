@@ -14,6 +14,7 @@ layer: knowledge
 每趟 `brain.cli compile` 追加一行。無人值守 run 無 log 即失敗。
 
 <!-- COMPILE:LOG -->
+- 2026-10-24 · chunks=589 created=0 updated=3 obs=89
 - 2026-10-23 · chunks=582 created=0 updated=3 obs=92
 - 2026-10-23 · chunks=548 created=0 updated=3 obs=87
 - 2026-10-22 · chunks=543 created=0 updated=3 obs=96
