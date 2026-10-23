@@ -1,0 +1,36 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-10-23 a2aee95f Merge pull request #82 from sleepingarhat/chore/remove-whop-watch-feed-2026-10-23\n2026-10-23 fc3381e3 fix(alerts): post ops alerts to tianxi.racing (lovable.app host 404s); docs: watch notifier design\n2026-10-23 8ed3e180 chore(membership): retire Whop day/month/VIP; add read-only 愛駒追蹤 watch events feed\n2026-10-23 73afa746 Merge pull request #81 from sleepingarhat/fix/tg-senddocument-error-2026-10-22\n2026-10-23 ae8894b4 feat(tg): TG_CHANNEL accepts comma-separated chats; default @tianxi_racing_pro,@tianxi_racing\n2026-10-23 80d18b0b Merge pull request #80 from sleepingarhat/fix/tg-senddocument-error-2026-10-22\n2026-10-22 8a0ddcec fix(tg): surface Telegram error description on sendDocument; TG_CHANNEL configurable via repo variable\n2026-10-22 0c4c197f Merge pull request #79 from sleepingarhat/fix/horse-trials-query-2026-10-22\n2026-10-22 f59908cc fix(horses): /form barrierTrials used non-existent trial columns and always returned []\n2026-10-22 bc530163 Merge pull request #78 from sleepingarhat/fix/d1-sync-sectionals-trials-2026-10-22\n2026-10-22 432de194 fix(d1-sync): push horse_sectional_times (race sync) and barrier trials (pool-a sync) to D1; FK-guarded, re-run safe; manual sectionals backfill\n2026-10-22 c7f0af1b Merge pull request #77 from sleepingarhat/feat/data-stats-ssot-2026-10-22\n2026-10-22 d630e991 feat(data-stats): public D1 data-volume endpoint (daily exact counts, stored + edge cached); README/DATA_NOTES use live badges\n2026-10-22 0171b681 Merge pull request #76 from sleepingarhat/fix/lock-tick-timezone-2026-10-22\n2026-10-22 4a6fab5a fix(lock-window): compare lock-tick meeting window as instants, not mixed +08:00/Z strings\n2026-10-22 f9df837e perf(freeze-ledger): isolation, concurrency, D1 snapshot, cached verification, edge cache (#75)\n2026-10-21 1cda4e03 fix(capy_odds): retry D1 chunk import and verify landed rows instead of failing on wrangler polling message",
+    "content_hash": "9a489998031e3f57",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-10-23T16:59:27+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:recent-commits",
+    "content": "2026-10-23 8e079473 Merge pull request #4 from sleepingarhat/fix/results-job-wx-isolation-2026-10-22\n2026-10-22 2832510a fix(results): accept unnumbered WX rows; isolate per-race failures with deduped alerts\n2026-10-22 f86377ce Merge pull request #3 from sleepingarhat/feat/data-stats-ssot-2026-10-22\n2026-10-22 1365d366 feat(data-stats): site data-volume numbers come from live D1 counts (/api/public/data-stats), no hardcoded totals\n2026-10-22 1cd4b94b Merge pull request #2 from sleepingarhat/fix/predictor-timeout-2026-10-22\n2026-10-22 bb5fd092 fix(predictor): retry today-picks once on transient failure before showing timeout error\n2026-10-22 113c6663 perf: timeouts + retry states, read-failed code, freeze-ledger edge cache (#1)\n2026-10-21 45392cfd audit: 第四步退出分類及跨場派彩回歸（未發布）\n2026-10-19 2f029b31 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 7dcacba7 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 8d36ac21 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 350eb887 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 a2dd1997 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 10a0c527 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 febd7e74 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 da21e571 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 9b5dc9d1 sync: 第三項收料修正及稽核證據（未發布）\n2026-10-19 4a2bf81c fix: live withdrawal notices and free member signup copy (preview only)",
+    "content_hash": "12f33c878c8ef1a1",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-web/commits/main",
+      "fetched_at": "2026-10-23T16:59:27+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
