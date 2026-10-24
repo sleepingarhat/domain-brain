@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "membership": {
+    "founding_members": 200,
+    "founding_pro_weeks": 52,
+    "automatic_gate": false,
+    "payment_acceptance_required": true,
+    "owner_approval_required": true
+  },
+  "payments": {
+    "stripe_weekly_hkd": 78,
+    "stripe_auto_renew": true,
+    "crypto_usd": 416,
+    "crypto_weeks": 52,
+    "crypto_auto_renew": false,
+    "display_usd_hkd_rate": 7.8,
+    "crypto_display_hkd": 3244.8
+  },
+  "schedules": {
+    "weather-archive-managed": "*/5 * * * *",
+    "weather-sync-github-managed": "50 15 * * *",
+    "race-results-dispatch-managed": "31 15,17 * * *",
+    "horse-watch": "30 1 * * *",
+    "raceday-alerts": "*/5 2-15 * * *",
+    "telegram-pro-sweep": "7 * * * *"
+  },
+  "primary_results": {
+    "after_verified_final_race_minutes": 30,
+    "fixed_dispatch_is_backup_only": true
+  }
+}
