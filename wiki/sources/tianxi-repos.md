@@ -26,10 +26,6 @@ layer: knowledge
 ## 觀察
 
 （較早 2 條觀察已截斷，矛盾區保留）
-- 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @f467acb7 · hash:2de117f54bf6
-- 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @f467acb7 · hash:69774812cbea
-- 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @f467acb7 · hash:8a0f0f00ff0c
-- 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/MODEL.md @f467acb7 · hash:3af26e4d9c7f
 - 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/ELO.md @f467acb7 · hash:4f795c29f3b3
 - 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/backend/README.md @f467acb7 · hash:271717c4c5cd
 - 2026-10-20 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/backend/docs/PREDICTION_LOCK.md @f467acb7 · hash:d4c6f13cc1dc
@@ -66,6 +62,10 @@ layer: knowledge
 - 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @8687b66b · hash:f418ed06b5c2
 - 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @8687b66b · hash:71d75b89642a
 - 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:f3a16af9e0b2
+- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:dd680fa51ae9
+- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @7a24dc1b · hash:7dda53a94459
+- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @7a24dc1b · hash:0ac573da39d1
+- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @7a24dc1b · hash:1c8cb07cfb1c
 
 ## 矛盾
 
