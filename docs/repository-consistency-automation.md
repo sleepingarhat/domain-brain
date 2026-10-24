@@ -16,3 +16,8 @@
 - 沿用現有GitHub授權，不寫任何憑證入檔案；Actions先用既有`TIANXI_BACKEND_PAT`，否則內建唯讀token；無私有倉讀取權會明確失敗，不能跳過。
 - 本機：`python3 -m unittest discover -s scripts -p test_repository_consistency.py`；`python3 scripts/audit_repository_consistency.py --report /tmp/repository-consistency.json`。
 - 不呼叫付款、通知、天氣或賽果endpoint，亦不修改收費閘、crypto或賽日提示。
+
+## 2026-10-24首次驗收
+- 22項政策測試、14項付款權限回歸通過；首次四倉讀回指出domain-brain「網站功能」舊矛盾段落未標歷史，補標但原文／hash不改。
+- 再讀145份文件零差異；GitHub平台run40087939784的政策測試、四倉只讀核對及報告保存均success，證明現有授權可讀私有研究倉，不以本機成功冒稱排程已跑。
+- 每小時17分已設定；首次自然整點運行尚未到，不冒稱已完成自然週期驗收。NOWPayments安全表單已儲存，有效性及付款到帳仍未驗收；網站未發布。
