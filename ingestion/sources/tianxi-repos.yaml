@@ -33,6 +33,10 @@
           - README.md
           - docs/blueprint/tianxi-racing-blueprint-2026-10-13.md
           - docs/frozen-racing-api.md
+          - docs/reviews/repository-consistency-2026-10-24.md
+          - src/lib/freeStage.ts
+          - src/lib/entitlement.ts
+          - src/routes/membership.tsx
   notes: |
     兩個倉都係 PUBLIC，唔需要 token；喺 GitHub Actions 會用 github.token 提高 rate limit（只放 header，唔打 log）。
     只寫有變動嘅文件（同現存 chunks content_hash 比較）。
