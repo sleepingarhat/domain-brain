@@ -28,7 +28,6 @@ Agent 開 session 先讀呢頁。Compile 會刷新「最近矛盾」同「最近
 ### 最近矛盾
 
 <!-- HOT:CONTRADICTIONS -->
-- [[race-2026-09-27]] 2026-09-27 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 - [[race-2026-10-01]] 2026-10-01 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 - [[race-2026-10-04]] 2026-10-04 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 - [[race-2026-10-07]] 2026-10-07 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
@@ -36,6 +35,7 @@ Agent 開 session 先讀呢頁。Compile 會刷新「最近矛盾」同「最近
 - [[race-2026-10-14]] 2026-10-14 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 - [[race-2026-10-19]] 2026-10-19 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 - [[race-2026-10-21]] 2026-10-21 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
+- [[race-2026-10-25]] 2026-10-25 · 有完場賽果但 chunks 無當日 TX-Oracle 樣本（未回測充場）
 
 ## 矛盾
 
