@@ -26,15 +26,6 @@ layer: knowledge
 ## 觀察
 
 （較早 2 條觀察已截斷，矛盾區保留）
-- 2026-10-22 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @0c4c197f · hash:a9497c0b39d6
-- 2026-10-22 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @0c4c197f · hash:df6fcf186cae
-- 2026-10-22 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @0c4c197f · hash:384fc97dc6bf
-- 2026-10-22 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @0c4c197f · hash:c925973200f9
-- 2026-10-22 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:56581c48adc9
-- 2026-10-22 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:cd6e78201cbd
-- 2026-10-23 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:907cdbb5c19c
-- 2026-10-23 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:e54e88663d07
-- 2026-10-23 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:d9e2616f848e
 - 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @8687b66b · hash:f418ed06b5c2
 - 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @8687b66b · hash:71d75b89642a
 - 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:f3a16af9e0b2
@@ -66,6 +57,15 @@ layer: knowledge
 - 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @6f4a28fd · hash:04aa80c3c148
 - 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @6f4a28fd · hash:03193ed96aad
 - 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:9102173e34e1
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @ff71218e · hash:2f523c570c98
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @ff71218e · hash:508f66a705df
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @ff71218e · hash:291a4b7c72e0
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @ff71218e · hash:d06f6a68ab6c
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @ff71218e · hash:5e53de279389
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:a523a60e49e1
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @37502043 · hash:a539afaeb9ee
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @37502043 · hash:bf630cb4d649
+- 2026-10-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @37502043 · hash:acdc1d5262e2
 
 ## 矛盾
 
