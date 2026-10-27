@@ -1,0 +1,74 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-10-27 1cfb6eb0 Ingest HKJC race-day companion boards (#119)\n2026-10-27 d919f0cc Official HKJC P2 boards: rankings, draw, JKC/TNC, intros, owners (#118)\n2026-10-27 596ace6c 自動入庫：更易事項、賽期表身份、賽果評分與跑道 (#117)\n2026-10-27 189d66ef fix(lab): pair h2h meetings on each side's best valid finish (#116)\n2026-10-27 58a6bcd7 docs: map every public HKJC local racing page to Tianxi coverage (#115)\n2026-10-27 4f193a03 fix(racecard): store all-weather race headers and fail closed (#114)\n2026-10-27 0c1b8647 chore(lab): going/weather 410 + trainer h2h (#112)\n2026-10-27 5684d25a fix(lab): accept Chinese jockey ids in h2h validation (#111)\n2026-10-27 d360a9cd chore(lab): 410 Gone for pace + pools APIs (#110)\n2026-10-27 48af71ae chore(lab): 410 Gone for backtest + compare APIs (#109)\n2026-10-27 d11e8cbe fix(lab): scrub demo-fixture ROI/net/drawdown (#108)\n2026-10-27 867b92e1 Merge pull request #107 from sleepingarhat/feat/elo-baseline-h2h-indexes\n2026-10-26 14c5e446 feat(lab): elo_baseline_picks + h2h indexes 正式 migration（draft PR）\n2026-10-26 96e6fbe2 feat(pro-p2): 策略比較器 API（功能 2） (#106)\n2026-10-26 bb36762d feat(api-v1): Pro authenticated public read-only API (#8) (#105)\n2026-10-26 36f49ea8 feat(lab-pools): Pro pool combination optimizer (#9) (#104)\n2026-10-26 780cfce6 Merge pull request #103 from sleepingarhat/feat/pro-p3-going\n2026-10-26 5608fd32 fix(lab-going): alias RESEARCH_LAYER_NOTE to avoid duplicate with pace\n2026-10-26 c45d8f08 feat(pro-p3): lab going/weather API + auth tests（P3 功能5）\n2026-10-26 10db3401 Merge pull request #102 from sleepingarhat/feat/pro-p2-backtest\n2026-10-26 9512e27f feat(pro-p2): lab backtest API + official/Elo baselines（P2 功能1）\n2026-10-26 6cafb1ad Merge pull request #101 from sleepingarhat/feat/pro-p2-pace\n2026-10-26 42a077b4 fix(lab-pace): wire frozen 四揀 into pickRank for highlights\n2026-10-26 b5cf4093 feat(pro-p2): lab pace / pace-forecast API + auth tests\n2026-10-26 5d05d48a Merge pull request #100 from sleepingarhat/feat/pro-p1-notify-events\n2026-10-26 602252b6 ci: run notify-events tests in PR Extra tests\n2026-10-26 6db8048a feat(pro-p1): notify_events lock_complete / top4_lock / daily_pnl\n2026-10-26 c41cb09a Merge pull request #99 from sleepingarhat/feat/pro-p1-h2h\n2026-10-26 30b0452d ci: run lab h2h and auth tests in PR Extra tests\n2026-10-26 1718d124 feat(pro-p1): 研究室頭對頭 API /api/lab/h2h",
+    "content_hash": "93e013f415d6a421",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-10-28T05:26:03+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:src/routes/membership.tsx (1/2)",
+    "content": "import { createFileRoute, Link } from \"@tanstack/react-router\";\n\nimport { useAuthState } from \"@/lib/useAuthState\";\n\nimport { AppShell } from \"@/components/tx/AppShell\";\nimport { FreeStageRoadmap } from \"@/components/tx/FreeStageRoadmap\";\nimport { FoundingMemberOffer } from \"@/components/tx/FoundingMemberOffer\";\nimport { MembershipStatus } from \"@/components/tx/MembershipStatus\";\nimport {CryptoPasses} from '@/components/tx/CryptoPasses';\nimport { PaymentTestModeBanner } from \"@/components/PaymentTestModeBanner\";\nimport { FREE_STAGE_GOAL_MEMBERS, PRO_WEEKLY_PRICE_HKD } from \"@/lib/freeStage\";\nimport { useFoundingInfo } from \"@/lib/founding-info\";\nimport { Card, Disclaimer, PageHead, Pill, TxCta } from \"@/components/tx/ui\";\n\nexport const Route = createFileRoute(\"/membership\")({\n  head: () => ({\n    meta: [\n      { title: \"天喜會員 · 而家全站免費 · 天喜 TIANXI\" },\n      {\n        name: \"description\",\n        content:\n          `天喜而家全站免費：香港賽馬全部功能免費使用。首${FREE_STAGE_GOAL_MEMBERS}名開閘送52週Pro，付款驗收及批准後才收費，滿額不自動開閘。`,\n      },\n      { property: \"og:title\", content: \"天喜會員 · 而家全站免費\" },\n      {\n        property: \"og:description\",\n        content: `全部功能免費使用；首${FREE_STAGE_GOAL_MEMBERS}名創始優惠，收款須先驗收及批准；公開對帳永久免費。`,\n      },\n      { property: \"og:type\", content: \"website\" },\n      { name: \"twitter:card\", content: \"summary\" },\n    ],\n  }),\n  component: MembershipPage,\n});\n\nconst STRENGTHS = [\n  [\"01\", \"數據化預測\", \"以香港賽事長期資料建立可重現預測，唔靠賽後改口或主觀貼士。\"],\n  [\"02\", \"時序外驗證\", \"所有改動先用未見過嘅較後賽事驗證，降低只對舊數據有效嘅風險。\"],\n  [\"03\", \"多來源核對\", \"賽事、馬匹及市場資料經一致性檢查；缺資料時直接隱藏，不以猜測補值。\"],\n  [\"04\", \"機率化輸出\", \"Pro 顯示最終勝出、三甲及前四機率，方便比較同場相對強弱。\"],\n  [\"05\", \"持續監察\", \"新訊號要跨時段維持改善先會採用，單次漂亮結果不足以推出。\"],\n  [\"06\", \"永久公開對賬\", \"過往預測同實際賽果長期公開，準確度由你自行核實。\"],\n];\n\nconst FEATURES = [\n  [\"賽前預測\", \"全日賽事四揀與第五選\"],\n  [\"選馬對照\", \"模型搏冷＋市場穩陣雙欄\"],\n  [\"機率與信心\", \"每匹馬機率及信心分\"],\n  [\"排位與賠率\", \"賽事資料、臨場盤口對照\"],\n  [\"賽果與盈虧\", \"逐場對帳、六彩池策略盈虧\"],\n  [\"引擎與回測\", \"健康監察、歷史回測與公開戰績\"],\n];\n\nfunction MembershipPage() {\n  const { signedIn } = useAuthState();\n  const { data: info } = useFoundingInfo();\n  const GOAL_MEMBERS = info?.threshold ?? FREE_STAGE_GOAL_MEMBERS;\n  const foundingSlots = info?.founding_slots ?? FREE_STAGE_GOAL_MEMBERS;\n  return (\n    <AppShell\n      page=\"dashboard\"\n      ticker={`全站免費中 · 收費未開放 · 創始門檻 ${GOAL_MEMBERS.toLocaleString()} 人 · 付款驗收及批准後才開閘`}\n    >\n      <PageHead\n        en=\"Free Stage · Tianxi Pro\"\n        title=\"限時免費 · 享 Pro 全站功能\"\n        desc={`香港賽馬全部功能免費使用，冇隱藏收費。創始門檻${GOAL_MEMBERS.toLocaleString()}人，滿額不自動開閘；付款驗收及批准後才收費，iOS App尚未推出。而家功能權益等同 Pro，並非已開通付費訂閱，現階段唔收款。`}\n      />\n\n      <div className=\"grid grid-cols-2 gap-3 px-4 py-5\">\n        <TxCta asChild variant=\"outline\" className=\"h-11 rounded-[8px]\"><Link to=\"/track-record\">公開戰績 →</Link></TxCta>\n        {signedIn ? (\n          <TxCta asChild variant=\"deep\" className=\"h-11 rounded-[8px]\"><Link to=\"/predictor\">睇今日四揀 →</Link></TxCta>\n        ) : signedIn === false ? (\n          <>\n            <TxCta asChild variant=\"deep\" className=\"h-11 rounded-[8px]\"><Link to=\"/auth\" search={{ mode: \"signup\" }}>現在註冊 →</Link></TxCta>\n            <Link to=\"/auth\" className=\"col-span-2 text-center text-[12px] text-ink-3 underline underline-offset-4\">已有帳戶？登入</Link>\n          </>\n        ) : null}\n      </div>\n\n      <PaymentTestModeBanner />\n      <FoundingMemberOffer />\n\n      <div className=\"space-y-6 py-5 [&>section]:my-0\">\n      <MembershipStatus />\n      <CryptoPasses offer />\n      <Card title=\"全站功能權益\" en=\"Pro access\" action={<Pill tone=\"win\">限時免費</Pill>}>\n        <p className=\"mb-4 text-[13px] leading-relaxed text-ink-2\">而家免費使用以下全部功能，權益等同 Pro；唔限每日一場，亦冇「不包括」嘅功能限制。</p>\n        <dl className=\"divide-y divide-hairline\">\n          {FEATURES.map(([name, detail]) => <div key={name} className=\"grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-3\"><div className=\"min-w-0\"><dt className=\"text-[13px] font-bold text-ink\">{name}</dt><dd className=\"mt-1 text-[12px] leading-relaxed text-ink-3\">{detail}</dd></div><span className=\"shrink-0 whitespace-nowrap text-[12px] font-bold text-win\">已包括 ✓</span></div>)}\n        </dl>\n        <p className=\"mt-4 border-t border-hairline pt-3 text-[11px] leading-relaxed text-ink-3\">收費閘：門檻 {GOAL_MEMBERS} 人，須付款驗收及批准後才開放，滿額不自動收費。首 {foundingSlots} 名真實會員開閘後送 52 週 Pro；之後加入嘅會員開閘後按 HK${PRO_WEEKLY_PRICE_HKD}／星期訂閱。Telegram Pro 頻道為 Pro 會員專享，於<Link to=\"/account\" className=\"text-gold\">個人頁</Link>連結後申請加入；通知啟用及送達仍待驗收。</p>\n      </Card>\n\n      <FreeStageRoadmap />\n\n      <Card title=\"將來收費方案\" en=\"Pro · Not open\" action={<Pill tone=\"ink\">未開放</Pill>}>\n        <div className=\"grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3\">\n          <h3 className=\"font-serif-tc text-[18px] font-bold text-ink\">Pro 會員</h3><Pill tone=\"gold\">唯一方案</Pill>\n        </div>\n        <p className=\"mt-3 text-[13px] leading-relaxed text-ink-2\">可用全站所有功能，將來可能增設其他會員資格。收入支持天喜持續維護、研究同升級預測系統。</p>\n        <p className=\"mt-4 border-t border-hairline pt-3 text-[12px] leading-relaxed text-ink-3\">創始門檻 {GOAL_MEMBERS} 人；付款驗收及批准後才收費，iOS App上架另待安排；屆時冇免費試用。首 {foundingSlots} 名會員獲贈嘅 52 週 Pro 會籍毋須付款，期滿後可選擇按 HK${PRO_WEEKLY_PRICE_HKD}／星期續訂。公開對帳同歷史成績永久免費。</p>\n      </Card>\n      </div>\n\n      <Card title=\"引擎技術實力\" en=\"Why Tianxi\">\n        <div className=\"divide-y divide-hairline\">\n          {STRENGTHS.map(([no, h, body]) => (\n            <div key={no} className=\"py-2.5\">\n              <div className=\"flex items-center gap-2\">\n                <span className=\"tabnum font-mono-tx text-[11px] font-bold text-gold\">{no}</span>\n                <span className=\"font-serif-tc text-[13px] font-bold text-ink\">{h}</span>\n              </div>\n              <p className=\"mt-0.5 text-[12px] leading-relaxed text-ink-2\">{body}</p>\n            </div>\n          ))}\n        </div>\n        <p className=\"mt-2 text-[12px] text-ink-2\">\n          天喜唔係貼士佬主觀感覺，而係<b className=\"text-ink\">可驗證、可問責</b>嘅數據引擎。\n        </p>\n      </Card>\n\n      <p className=\"mx-4 mt-2 text-[10px] text-ink-3\">Pro 開發者只讀 API 文件：<Link to=\"/developers\" className=\"text-gold\">/developers</Link></p>",
+    "content_hash": "07b60be644ac54ad",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "src/routes/membership.tsx",
+      "commit": "4217929c",
+      "url": "https://github.com/sleepingarhat/tianxi-web/blob/main/src/routes/membership.tsx",
+      "fetched_at": "2026-10-28T05:26:03+08:00",
+      "redacted_lines": 1,
+      "domain_tags": [
+        "tianxi",
+        "system"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:src/routes/membership.tsx (2/2)",
+    "content": "      <Disclaimer extra=\"天喜為分析平台，不提供投注服務，亦不保證任何回報。\" />\n    </AppShell>\n  );\n}",
+    "content_hash": "e985df012cc1f380",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "src/routes/membership.tsx",
+      "commit": "4217929c",
+      "url": "https://github.com/sleepingarhat/tianxi-web/blob/main/src/routes/membership.tsx",
+      "fetched_at": "2026-10-28T05:26:03+08:00",
+      "redacted_lines": 1,
+      "domain_tags": [
+        "tianxi",
+        "system"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:recent-commits",
+    "content": "2026-10-27 a35f5de9 feat(lab): 馬騎練比較 UI＋下架場地天氣 (#28)\n2026-10-27 da77ae0d Today race-day copy and dashboard data fixes (#27)\n2026-10-27 d271ac84 Rename lab surface from 研究室 to 功能 (#26)\n2026-10-27 65c5de82 fix(ui): Phase 1 TxCta Gold/Deep/Outline + primary→deep (#20)\n2026-10-27 82f81cd0 feat(lab): A–D UX lock — copy, weights, going lists, h2h compare (#25)\n2026-10-27 636a32ae chore(lab): decommission 走位節奏 + 彩池優化器 (#24)\n2026-10-27 63b50b04 fix(lab): parent route renders Outlet; wall moved to lab.index (verified with real session)\n2026-10-27 5a907280 fix(lab): Outlet layout so /lab child tool pages render\n2026-10-27 740a2b9d chore(lab): decommission 自訂回測 + 策略比較器 (#22)\n2026-10-27 8f349005 Synced main PR #21 lab-backtest nav\n2026-10-27 070b2f73 fix(lab): /lab/backtest nav + demo Callout, hide fake ROI (#21)\n2026-10-27 3e93e86c Merge pull request #19 from sleepingarhat/feat/user-strategies-persist\n2026-10-26 4a33d01a fix(lab): FeatureId／exactOptional + user-strategies functions vitest\n2026-10-26 cdaa972e feat(lab): user_strategies 帳號持久化（draft PR）\n2026-10-26 0a50db2b feat(pro-p2): 策略比較器 UI（/lab/compare） (#18)\n2026-10-26 d7837f15 feat(lab/pools): Pro pool optimizer UI + lab-tools ready (#9) (#17)\n2026-10-26 8f6a34e0 feat(developers): Pro API docs + /account/api keys (#8) (#16)\n2026-10-26 95599e4f Merge pull request #15 from sleepingarhat/feat/pro-p3-going\n2026-10-26 be6f165e feat(pro-p3): 場地天氣 lab UI（P3 功能5）\n2026-10-26 6261e4e8 Merge pull request #14 from sleepingarhat/feat/pro-p2-backtest\n2026-10-26 51ae023b Merge pull request #13 from sleepingarhat/feat/pro-p2-pace\n2026-10-26 c718f313 fix(lab): allow pace ready in lab-tools h2h regression test\n2026-10-26 7b5ea7dd feat(pro-p2): 走位節奏 lab UI + race tab\n2026-10-26 1f3ac561 Merge pull request #12 from sleepingarhat/feat/pro-p1-notify-events\n2026-10-26 d75ca32f Merge pull request #11 from sleepingarhat/feat/pro-p1-h2h\n2026-10-26 de261130 fix: clear exactOptionalPropertyTypes and ECharts series typing for h2h\n2026-10-26 f75cc79e feat(pro-p1): 研究室頭對頭 /lab/h2h\n2026-10-26 427500fc Merge pull request #10 from sleepingarhat/feat/pro-p1-today-lab-shell\n2026-10-26 cc2ba3e2 fix: narrow strategy upsert and test index access for tsc\n2026-10-26 a434374b fix: escape sample-size less-than in BacktestPanel JSX",
+    "content_hash": "ce03e1a509feab6f",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-web/commits/main",
+      "fetched_at": "2026-10-28T05:26:03+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
