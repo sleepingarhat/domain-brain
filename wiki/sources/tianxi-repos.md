@@ -26,11 +26,6 @@ layer: knowledge
 ## 觀察
 
 （較早 2 條觀察已截斷，矛盾區保留）
-- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @7a24dc1b · hash:0ac573da39d1
-- 2026-10-24 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @7a24dc1b · hash:1c8cb07cfb1c
-- 2026-10-25 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @7ecf1bf0 · hash:1a1ef85e8c87
-- 2026-10-25 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @7ecf1bf0 · hash:fa8adb78607d
-- 2026-10-25 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @7ecf1bf0 · hash:9cc3475c266f
 - 2026-10-25 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @7ecf1bf0 · hash:7faff39f4af8
 - 2026-10-25 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/backend/README.md @7ecf1bf0 · hash:ca3af9d62312
 - 2026-10-25 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:c6ac660b0b80
@@ -66,6 +61,11 @@ layer: knowledge
 - 2026-10-27 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/src/routes/membership.tsx @0a50db2b · hash:03eb973c4686
 - 2026-10-27 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/src/routes/membership.tsx @0a50db2b · hash:a07545932543
 - 2026-10-27 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:2cf094c426c3
+- 2026-10-27 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:0c0e2a740729
+- 2026-10-27 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @63b50b04 · hash:ad1ffb19e682
+- 2026-10-27 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @63b50b04 · hash:7937e0753695
+- 2026-10-27 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @63b50b04 · hash:0e278e8e0c08
+- 2026-10-27 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:6551abb6c117
 
 ## 矛盾
 
