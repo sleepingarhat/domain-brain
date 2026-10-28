@@ -22,7 +22,8 @@
     "race-results-dispatch-managed": "31 15,17 * * *",
     "horse-watch": "30 1 * * *",
     "raceday-alerts": "*/5 2-15 * * *",
-    "telegram-pro-sweep": "7 * * * *"
+    "telegram-pro-sweep": "7 * * * *",
+    "notify-events": "*/10 * * * *"
   },
   "primary_results": {
     "after_verified_final_race_minutes": 30,
