@@ -1,0 +1,19 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-10-28 17e18090 backfill: races.rating_range/track/course for old D1 rows from archived results CSVs (#121)\n2026-10-28 02426409 Wave4 official boards: horse curves, movements, overoar, pool results, draw search (#120)\n2026-10-27 1cfb6eb0 Ingest HKJC race-day companion boards (#119)\n2026-10-27 d919f0cc Official HKJC P2 boards: rankings, draw, JKC/TNC, intros, owners (#118)\n2026-10-27 596ace6c 自動入庫：更易事項、賽期表身份、賽果評分與跑道 (#117)\n2026-10-27 189d66ef fix(lab): pair h2h meetings on each side's best valid finish (#116)\n2026-10-27 58a6bcd7 docs: map every public HKJC local racing page to Tianxi coverage (#115)\n2026-10-27 4f193a03 fix(racecard): store all-weather race headers and fail closed (#114)\n2026-10-27 0c1b8647 chore(lab): going/weather 410 + trainer h2h (#112)\n2026-10-27 5684d25a fix(lab): accept Chinese jockey ids in h2h validation (#111)\n2026-10-27 d360a9cd chore(lab): 410 Gone for pace + pools APIs (#110)\n2026-10-27 48af71ae chore(lab): 410 Gone for backtest + compare APIs (#109)\n2026-10-27 d11e8cbe fix(lab): scrub demo-fixture ROI/net/drawdown (#108)\n2026-10-27 867b92e1 Merge pull request #107 from sleepingarhat/feat/elo-baseline-h2h-indexes\n2026-10-26 14c5e446 feat(lab): elo_baseline_picks + h2h indexes 正式 migration（draft PR）\n2026-10-26 96e6fbe2 feat(pro-p2): 策略比較器 API（功能 2） (#106)\n2026-10-26 bb36762d feat(api-v1): Pro authenticated public read-only API (#8) (#105)\n2026-10-26 36f49ea8 feat(lab-pools): Pro pool combination optimizer (#9) (#104)\n2026-10-26 780cfce6 Merge pull request #103 from sleepingarhat/feat/pro-p3-going\n2026-10-26 5608fd32 fix(lab-going): alias RESEARCH_LAYER_NOTE to avoid duplicate with pace\n2026-10-26 c45d8f08 feat(pro-p3): lab going/weather API + auth tests（P3 功能5）\n2026-10-26 10db3401 Merge pull request #102 from sleepingarhat/feat/pro-p2-backtest\n2026-10-26 9512e27f feat(pro-p2): lab backtest API + official/Elo baselines（P2 功能1）\n2026-10-26 6cafb1ad Merge pull request #101 from sleepingarhat/feat/pro-p2-pace\n2026-10-26 42a077b4 fix(lab-pace): wire frozen 四揀 into pickRank for highlights\n2026-10-26 b5cf4093 feat(pro-p2): lab pace / pace-forecast API + auth tests\n2026-10-26 5d05d48a Merge pull request #100 from sleepingarhat/feat/pro-p1-notify-events\n2026-10-26 602252b6 ci: run notify-events tests in PR Extra tests\n2026-10-26 6db8048a feat(pro-p1): notify_events lock_complete / top4_lock / daily_pnl\n2026-10-26 c41cb09a Merge pull request #99 from sleepingarhat/feat/pro-p1-h2h",
+    "content_hash": "4ff79a80823e2064",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-10-28T18:14:58+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
