@@ -6,7 +6,7 @@ aliases:
   - 天喜數據庫
 sources:
   - tianxi-database
-updated: 2026-10-29
+updated: 2026-11-01
 status: active
 layer: knowledge
 ---
@@ -34,6 +34,7 @@ layer: knowledge
 - 2026-10-21 · tianxi-database · 賽果 [[沙田]]  — 正式賽果 · hash:6aade645ca67
 - 2026-10-25 · tianxi-database · 賽果 [[跑馬地]]  — 正式賽果 · hash:c423a5be4ff4
 - 2026-10-28 · tianxi-database · 賽果 [[沙田]]  — 正式賽果 · hash:cf66356fd966
+- 2026-11-01 · tianxi-database · 賽果 [[跑馬地]]  — 正式賽果 · hash:900dca271e23
 
 ## 矛盾
 
