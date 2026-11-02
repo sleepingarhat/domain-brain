@@ -1,0 +1,19 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-02 3b46a996 Collect HKJC jockey and trainer challenge boards (#128)\n2026-11-02 71988d22 官方馬匹資料擴展：馬匹往績表、全登記馬匹掃描（含退役馬） (#127)\n2026-11-02 e089dd55 賽果寫入場次時同步馬會官方開跑時間（只填空值） (#126)\n2026-11-02 9821f417 fix(official-p2): 接受馬會騎師王／練馬師王新版無名次表格\n2026-11-02 5dec1615 fix(official-p2): 接受馬會騎師王／練馬師王新版無名次表格",
+    "content_hash": "a7d75e9753e64fe6",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-03T07:58:18+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
