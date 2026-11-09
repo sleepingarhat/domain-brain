@@ -1,0 +1,19 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-09 802fc0ae fix(horses): 馬匹頁 Elo 優先讀 v12，唔再混入舊版快照 (#140)\n2026-11-08 fa30422d fix: 11-08 收料失敗——大賽途程、練馬師屬意空白、部分單位派彩、賽日間隔新鮮度 (#139)",
+    "content_hash": "099c8686bc15a06d",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-09T20:25:26+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
