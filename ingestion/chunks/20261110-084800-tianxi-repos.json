@@ -1,0 +1,36 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-09 d15b1d23 Race-day companions: keep running the morning after a night meeting (#143)\n2026-11-09 cce80a72 全登記掃描補收：已取消登記頁名及 C 開頭舊烙號 (#142)\n2026-11-09 ffe8f01d 資料庫同步保留開跑時間、往績推送後即時同步、推送撞車及暫時性錯誤重試 (#141)\n2026-11-09 802fc0ae fix(horses): 馬匹頁 Elo 優先讀 v12，唔再混入舊版快照 (#140)\n2026-11-08 fa30422d fix: 11-08 收料失敗——大賽途程、練馬師屬意空白、部分單位派彩、賽日間隔新鮮度 (#139)",
+    "content_hash": "58ee6144aef11601",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-10T08:48:00+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:recent-commits",
+    "content": "2026-11-09 026b7c92 sync: 開發日誌（全登記掃描回查、開跑時間保留）\n2026-11-09 59103afa sync: 前端倉覆核（略過型別檢查暫存檔）\n2026-11-03 2851c544 docs: roadmap 標明排版第二輪已上線\n2026-11-03 774a6170 sync: 全站排版第二輪上線（公開頁面細字統一放大）\n2026-10-29 b3f418c2 docs: 核實官方馬匹收料覆蓋缺口\n2026-10-29 b362023e fix: 分層對帳完整紀錄快讀及返回導航\n2026-10-29 353951f1 perf: 完賽賽日直接核實原副本，移除慢即時預測等待（未發布）\n2026-10-27 a35f5de9 feat(lab): 馬騎練比較 UI＋下架場地天氣 (#28)\n2026-10-27 da77ae0d Today race-day copy and dashboard data fixes (#27)\n2026-10-27 d271ac84 Rename lab surface from 研究室 to 功能 (#26)\n2026-10-27 65c5de82 fix(ui): Phase 1 TxCta Gold/Deep/Outline + primary→deep (#20)\n2026-10-27 82f81cd0 feat(lab): A–D UX lock — copy, weights, going lists, h2h compare (#25)\n2026-10-27 636a32ae chore(lab): decommission 走位節奏 + 彩池優化器 (#24)\n2026-10-27 63b50b04 fix(lab): parent route renders Outlet; wall moved to lab.index (verified with real session)\n2026-10-27 5a907280 fix(lab): Outlet layout so /lab child tool pages render\n2026-10-27 740a2b9d chore(lab): decommission 自訂回測 + 策略比較器 (#22)\n2026-10-27 8f349005 Synced main PR #21 lab-backtest nav\n2026-10-27 070b2f73 fix(lab): /lab/backtest nav + demo Callout, hide fake ROI (#21)\n2026-10-27 3e93e86c Merge pull request #19 from sleepingarhat/feat/user-strategies-persist\n2026-10-26 4a33d01a fix(lab): FeatureId／exactOptional + user-strategies functions vitest\n2026-10-26 cdaa972e feat(lab): user_strategies 帳號持久化（draft PR）\n2026-10-26 0a50db2b feat(pro-p2): 策略比較器 UI（/lab/compare） (#18)\n2026-10-26 d7837f15 feat(lab/pools): Pro pool optimizer UI + lab-tools ready (#9) (#17)\n2026-10-26 8f6a34e0 feat(developers): Pro API docs + /account/api keys (#8) (#16)\n2026-10-26 95599e4f Merge pull request #15 from sleepingarhat/feat/pro-p3-going\n2026-10-26 be6f165e feat(pro-p3): 場地天氣 lab UI（P3 功能5）\n2026-10-26 6261e4e8 Merge pull request #14 from sleepingarhat/feat/pro-p2-backtest\n2026-10-26 51ae023b Merge pull request #13 from sleepingarhat/feat/pro-p2-pace\n2026-10-26 c718f313 fix(lab): allow pace ready in lab-tools h2h regression test\n2026-10-26 7b5ea7dd feat(pro-p2): 走位節奏 lab UI + race tab",
+    "content_hash": "3af3f27af1bc8398",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-web/commits/main",
+      "fetched_at": "2026-11-10T08:48:00+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
