@@ -1,0 +1,19 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-10 ebec214b Collect official HKJC posters, horse news, import text, and racecard files (#150)\n2026-11-10 2a7483c2 Collect remaining official surfaces and serve stored boards (#149)\n2026-11-10 fcfc8bdd Collect the next visible official HKJC boards. (#147)",
+    "content_hash": "243c7767f8d45601",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-12T07:35:43+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
