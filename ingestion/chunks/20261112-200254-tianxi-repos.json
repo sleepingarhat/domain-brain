@@ -1,0 +1,19 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-12 fd219b06 Keep official wave 5/6/7 collectors running on new HKJC page shapes (#152)",
+    "content_hash": "cc863c8906433a28",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-12T20:02:54+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
