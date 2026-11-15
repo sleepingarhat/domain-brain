@@ -1,0 +1,97 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:backend/README.md",
+    "content": "# 天喜後端 · tianxi-backend\n\n天喜賽馬預測的生產 API 與 TX-Oracle v3.2 引擎。\n\n公開站台：[tianxi.racing](https://tianxi.racing)\n\n## 產品\n\nTX-Oracle 對每場香港賽馬輸出獨贏、頭三、頭四機率與排名。模型用 LightGBM LambdaRank 學習名次順序，再與多軸 Elo 組合；臨場獨贏賠率只作參考欄，不進入排名模型。馬季中按賽程輸出訓練健康指標；休馬季自動暫停定時更新，新馬季開跑後自動恢復。\n\n截至上季最後一日（2026-07-15），引擎仍用當日凍結的預測紀錄，不改寫歷史戰績。\n\nElo 快照存於 D1。賽果本身按日同步；若快照缺月，由 `d1_fill_elo_gap` 工作流用 2016 起連續重算後只補缺口月份，不抹掉已有列、不改 LambdaRank 權重。\n\n## 生態（2026-10-24現行）\n\n\n正式站 https://tianxi.racing 已發布。平台驗證排程：weather-archive-managed每5分鐘、weather-sync-github-managed每日23:50 HKT、race-results-dispatch-managed每日23:31／01:31 HKT；首次均200，兩項天氣安全略過，賽果派送獲接納但不等於收齊。正常首次後已停舊weather-archive-5min、weather-sync-github-nightly及race-results-dispatch。逐場收料保留，全日首次核實官方完場後30分鐘主收料；固定深夜只為後備。\n\n鎖前官方更改只重算受影響場次；鎖後不補位，保留原四揀，退出／未完賽逐匹無效，命中分母固定4；鎖前退出未及重算亦按原四揀／4。實際換騎另記，不重算原凍結。官方彩池替補／退款只用於原注结算，不能改模型四揀。\n\n- tianxi-racing：賽馬服務與資料；tianxi-web：網站鏡像，正式站由Lovable發布。\n- domain-brain：衍生知識；tianxi-research：私有研究及退役足球／六合彩技術，不屬現行會員產品。\n- tianxi-database：賽事資料鏡像；不改歷史凍結或SHA。\n\n## 技術\n\n- Cloudflare Workers（Hono）+ D1\n- TX-Oracle v3.2：LambdaRank + Elo v12 + 因子補償",
+    "content_hash": "72ca45cab59dd6b9",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "backend/README.md",
+      "commit": "1aa3f621",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/blob/main/backend/README.md",
+      "fetched_at": "2026-11-15T19:42:39+08:00",
+      "redacted_lines": 1,
+      "domain_tags": [
+        "tianxi",
+        "system"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:README.md",
+    "content": "# 天喜 TIANXI · 香港賽馬\n\n[![馬場海報監察](https://github.com/sleepingarhat/tianxi-web/actions/workflows/racecourse-photos-monitor.yml/badge.svg)](https://github.com/sleepingarhat/tianxi-web/actions/workflows/racecourse-photos-monitor.yml)\n[![正式站健康監察](https://github.com/sleepingarhat/tianxi-web/actions/workflows/site-health-monitor.yml/badge.svg)](https://github.com/sleepingarhat/tianxi-web/actions/workflows/site-health-monitor.yml)\n\n2026-10-13 起專注深耕香港賽馬：沙田、跑馬地。正式站：https://tianxi.racing\n\n## 產品及免費路線\n- 每賽日首場前 90 分鐘凍結全日四揀及第五選；鎖後只接官方名次，不改預測。\n- 選馬、排位／賠率、預測與賽果、六彩池策略盈虧、公開戰績、百科、回測、引擎健康。\n- 主指標四揀平均中匹數，目標 3／4；市場熱門 2.31 作對照，不宣稱已達標，負數如實展示。\n- 現階段註冊會員免費享現有 Pro 功能；創始門檻首200名，開閘日起贈52週 Pro（HK$4,056）。達門檻不自動開閘，須付款驗收及用戶明確批准；iOS App 尚未推出，公開對帳永久免費。\n\n## 架構及倉庫\n- tianxi-racing：現行賽馬資料、服務及排程。\n- tianxi-web：現行源碼鏡像，正式站由 Lovable 發布。\n- tianxi-research：賽馬研究；研究先報告、用戶拍板先升版。\n- tianxi-football／tianxi-marksix：private＋archived，保留歷史資料及源碼，取消前台及監控服務。\n- 現行藍圖及前後端設計：docs/blueprint/tianxi-racing-blueprint-2026-10-13.md；兩份互動腦圖在 public/mindmap。\n- App／favicon 統一翠綠金色喜字與馬。馬場圖片授權见 /media-credits。\n\n## 驗收\n封存路徑自動測試：`bunx vitest run src/lib/product-scope.test.ts`；全站矩陣：`npm run test:break-ui`。公開頁通過不等於已登入監控端驗收。舊文件及開發日誌只作歷史，不代表現行範圍。",
+    "content_hash": "ddb61b35e90a1917",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "README.md",
+      "commit": "73c5cb00",
+      "url": "https://github.com/sleepingarhat/tianxi-web/blob/main/README.md",
+      "fetched_at": "2026-11-15T19:42:39+08:00",
+      "redacted_lines": 2,
+      "domain_tags": [
+        "tianxi",
+        "system"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:docs/reviews/repository-consistency-2026-10-24.md",
+    "content": "# 四倉庫一致性核查（2026-10-24）\n\n\n正式站 https://tianxi.racing 已發布。平台驗證排程：weather-archive-managed每5分鐘、weather-sync-github-managed每日23:50 HKT、race-results-dispatch-managed每日23:31／01:31 HKT；首次均200，兩項天氣安全略過，賽果派送獲接納但不等於收齊。正常首次後已停舊weather-archive-5min、weather-sync-github-nightly及race-results-dispatch。逐場收料保留，全日首次核實官方完場後30分鐘主收料；固定深夜只為後備。\n\n鎖前官方更改只重算受影響場次；鎖後不補位，保留原四揀，退出／未完賽逐匹無效，命中分母固定4；鎖前退出未及重算亦按原四揀／4。實際換騎另記，不重算原凍結。官方彩池替補／退款只用於原注结算，不能改模型四揀。\n\n## 核查範圍及修正\n- 網站README、兩個腦圖、藍圖及公開會員日誌舊500名／自動開閘已統一200。\n- 腦圖六個概念頁引用舊commit，把舊規則明確標為歷史並補現行更正；原始chunks不改，知識來源新增會員規則及本核查報告。\n- 賽馬README／服務README舊拆倉及固定23:30主收料更正；研究README不再把退役足球當現行產品。\n- 網站legacy-site靜態Whop／日月費頁只屬歷史，現行TanStack網站沒有該付款入口；不修改歷史檔案。\n\n## 保留及限制\n- 不改500字樣的模型分數、輪數、可調門檻測試、歷史migration、研究原檔及舊commit。\n- 文檔同步不代表其他倉Worker重新部署；現行模型公式差異需以版本／原凍結證據核對，不為統一文字改模型。\n- 本輪網站修正尚未發布；不開閘、不開Crypto或賽日提示。",
+    "content_hash": "f2abbafc7cb2d315",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "docs/reviews/repository-consistency-2026-10-24.md",
+      "commit": "73c5cb00",
+      "url": "https://github.com/sleepingarhat/tianxi-web/blob/main/docs/reviews/repository-consistency-2026-10-24.md",
+      "fetched_at": "2026-11-15T19:42:39+08:00",
+      "redacted_lines": 3,
+      "domain_tags": [
+        "tianxi",
+        "system"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:src/lib/freeStage.ts",
+    "content": "/** 免費階段門檻只表示進度；付款驗收及用戶明確批准後先開閘，不會滿額自動收費。\n *  瀏覽器安全預設；實際門檻及開閘時鎖定名額由會員 RPC 提供。 */\nexport const DEFAULT_PAYWALL_THRESHOLD = 200;\n/** Client fallback only; runtime threshold/cap comes from membership RPCs. */\nexport const FOUNDING_SLOTS = DEFAULT_PAYWALL_THRESHOLD;\n/** @deprecated Use runtime membership settings where available. */\nexport const FREE_STAGE_GOAL_MEMBERS = DEFAULT_PAYWALL_THRESHOLD;\nexport const WATCH_LIMITS = { free_stage: 30, registered: 3, pro: 90 } as const;\nexport const CRYPTO_PASS_PRICE_HKD = 3244.8;\nexport const CRYPTO_PASS_DISCOUNT = 0.8;\nexport function formatHkd(amount: number) {\n  return `HK$${amount.toLocaleString('en-HK', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;\n}\nexport const PRO_WEEKLY_PRICE_HKD = 78;\nexport const FOUNDING_PRO_WEEKS = 52;\nexport const FOUNDING_PRO_VALUE_HKD = PRO_WEEKLY_PRICE_HKD * FOUNDING_PRO_WEEKS;\nexport const FREE_STAGE_PRO_FEATURE_ACCESS = true;\n\n/** 免費階段進度（百分比，上限 100）；門檻未達之前全站免費，唔會悄悄收費。 */\nexport function freeStageProgress(total: number, goal = FREE_STAGE_GOAL_MEMBERS) {\n  if (!Number.isFinite(total) || total <= 0 || goal <= 0) return 0;\n  return Math.min(100, Math.round((total / goal) * 1000) / 10);\n}",
+    "content_hash": "384e3678c62f5a73",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "src/lib/freeStage.ts",
+      "commit": "73c5cb00",
+      "url": "https://github.com/sleepingarhat/tianxi-web/blob/main/src/lib/freeStage.ts",
+      "fetched_at": "2026-11-15T19:42:39+08:00",
+      "redacted_lines": 1,
+      "domain_tags": [
+        "tianxi",
+        "system"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:src/lib/entitlement.ts",
+    "content": "import { FOUNDING_PRO_WEEKS, DEFAULT_PAYWALL_THRESHOLD, FOUNDING_SLOTS } from \"./freeStage\";\n\nexport type SubRow = {\n  status: string;\n  current_period_end: string | null;\n  cancel_at_period_end: boolean;\n};\n\nexport type MembershipInput = {\n  rank: number | null;\n  total: number;\n  gateOpenAt: string | null;\n  subscription: SubRow | null;\n  threshold?: number;\n  foundingSlots?: number;\n  cryptoPassUntil?: string | null;\n  now?: Date;\n};\n\nexport type Entitlement =\n  | { kind: \"free_stage\"; hasPro: true; remaining: number }\n  | { kind: \"founding\"; hasPro: true; until: string }\n  | { kind: \"founding_expired\"; hasPro: false; until: string }\n  | { kind: \"subscribed\"; hasPro: true; until: string | null; cancelAtPeriodEnd: boolean }\n  | { kind: \"crypto_pass\"; hasPro: true; until: string }\n  | { kind: \"payment_failed\"; hasPro: false }\n  | { kind: \"none\"; hasPro: false };\n\nconst WEEK_MS = 7 * 24 * 60 * 60 * 1000;\n\nexport function foundingUntil(gateOpenAt: string): string {\n  return new Date(new Date(gateOpenAt).getTime() + FOUNDING_PRO_WEEKS * WEEK_MS).toISOString();\n}\n\n/**\n * 會籍規則（用戶拍板）：\n * - 未開閘＝限時免費，註冊會員享 Pro 功能。\n * - 門檻不自動開閘；付款驗收及用戶批准後才開閘，首創始名額 Pro 52 週，名額一次鎖定。\n */\nexport function resolveEntitlement(input: MembershipInput): Entitlement {\n  const now = input.now ?? new Date();\n  const threshold = input.threshold ?? DEFAULT_PAYWALL_THRESHOLD;\n  const foundingSlots = input.foundingSlots ?? FOUNDING_SLOTS;\n  const sub = input.subscription;\n  if (sub && [\"past_due\", \"unpaid\", \"incomplete\", \"incomplete_expired\", \"paused\"].includes(sub.status)) {\n    return { kind: \"payment_failed\", hasPro: false };\n  }\n  if (sub) {\n    const end = sub.current_period_end ? new Date(sub.current_period_end) : null;\n    const future = !end || end > now;\n    if ((sub.status === \"active\" || sub.status === \"trialing\") && future) {\n      return { kind: \"subscribed\", hasPro: true, until: sub.current_period_end, cancelAtPeriodEnd: sub.cancel_at_period_end };\n    }\n    if (sub.status === \"canceled\" && end && end > now) {\n      return { kind: \"subscribed\", hasPro: true, until: sub.current_period_end, cancelAtPeriodEnd: true };\n    }\n  }\n  if (input.cryptoPassUntil && new Date(input.cryptoPassUntil) > now) {\n    return { kind: \"crypto_pass\", hasPro: true, until: input.cryptoPassUntil };\n  }\n  if (!input.gateOpenAt) {\n    return { kind: \"free_stage\", hasPro: true, remaining: Math.max(0, threshold - input.total) };\n  }\n  if (input.rank !== null && input.rank <= foundingSlots) {\n    const until = foundingUntil(input.gateOpenAt);\n    if (new Date(until) > now) return { kind: \"founding\", hasPro: true, until };\n    if (!sub) return { kind: \"founding_expired\", hasPro: false, until };\n  }\n  return { kind: \"none\", hasPro: false };\n}",
+    "content_hash": "7b20a847a8b7c754",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "src/lib/entitlement.ts",
+      "commit": "73c5cb00",
+      "url": "https://github.com/sleepingarhat/tianxi-web/blob/main/src/lib/entitlement.ts",
+      "fetched_at": "2026-11-15T19:42:39+08:00",
+      "redacted_lines": 1,
+      "domain_tags": [
+        "tianxi",
+        "system"
+      ]
+    }
+  }
+]
