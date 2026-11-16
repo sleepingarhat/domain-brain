@@ -26,11 +26,6 @@ layer: knowledge
 ## 觀察
 
 （較早 2 條觀察已截斷，矛盾區保留）
-- 2026-10-29 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @5244a956 · hash:d188f5d8a2af
-- 2026-10-29 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @5244a956 · hash:a58bb4636050
-- 2026-10-29 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @5244a956 · hash:9fbd7275a0d0
-- 2026-10-29 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @b3f418c2 · hash:ef890fdf35ff
-- 2026-10-29 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @b3f418c2 · hash:c074dca22058
 - 2026-10-29 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @b3f418c2 · hash:87d955a0ac73
 - 2026-10-29 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:f87d0ca41989
 - 2026-10-30 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:11e4f5b0ad87
@@ -66,6 +61,11 @@ layer: knowledge
 - 2026-11-15 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/reviews/repository-consistency-2026-10-24.md @73c5cb00 · hash:b5f5ca74019b
 - 2026-11-15 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/src/lib/freeStage.ts @73c5cb00 · hash:4e4bcfebd794
 - 2026-11-15 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/src/lib/entitlement.ts @73c5cb00 · hash:f862cdf96d17
+- 2026-11-16 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @69eb1e43 · hash:173315fa19d3
+- 2026-11-16 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @69eb1e43 · hash:58e7530dcbae
+- 2026-11-16 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @69eb1e43 · hash:465dfe573b1f
+- 2026-11-16 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @69eb1e43 · hash:62964369e7bc
+- 2026-11-16 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/README.md @69eb1e43 · hash:b9062c03a512
 
 ## 矛盾
 
