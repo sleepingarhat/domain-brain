@@ -1,0 +1,38 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-18 582c6f5f Research: barrier-trial prior for debut runners and fair pre-lock market comparison (#157)\n2026-11-18 8580d01d Keep lock-time odds and fix going/trackwork explanations (#156)\n2026-11-18 f9ae6944 Read second Conghua stays of the same horse (#155)\n2026-11-18 d575bc7c Keep wave 4/5/7 collectors running on dead heats, reserve debutants and overweight notes (#154)\n2026-11-17 9422f100 Keep cancelled races and score dead-heat placings (#153)",
+    "content_hash": "fb8db4acfe626a86",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-18T20:32:38+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:src/routes/membership.tsx (2/2)",
+    "content": "      <Disclaimer extra=\"天喜為分析平台，不提供投注服務，亦不保證任何回報。\" />\n    </AppShell>\n  );\n}",
+    "content_hash": "e985df012cc1f380",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "src/routes/membership.tsx",
+      "commit": "434db609",
+      "url": "https://github.com/sleepingarhat/tianxi-web/blob/main/src/routes/membership.tsx",
+      "fetched_at": "2026-11-18T20:32:38+08:00",
+      "redacted_lines": 1,
+      "domain_tags": [
+        "tianxi",
+        "system"
+      ]
+    }
+  }
+]
