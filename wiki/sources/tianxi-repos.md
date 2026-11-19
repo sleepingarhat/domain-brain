@@ -26,9 +26,6 @@ layer: knowledge
 ## 觀察
 
 （較早 2 條觀察已截斷，矛盾區保留）
-- 2026-11-02 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:51921be91548
-- 2026-11-03 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:85e5c348d12a
-- 2026-11-03 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:d1c3a529063a
 - 2026-11-04 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:ed77222add6d
 - 2026-11-04 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/src/routes/membership.tsx @2851c544 · hash:2b294a351cf5
 - 2026-11-04 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:e1e0301f94ad
@@ -66,6 +63,9 @@ layer: knowledge
 - 2026-11-17 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:b5038e7b8902
 - 2026-11-18 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:2f5d5fcfa094
 - 2026-11-18 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/src/routes/membership.tsx @434db609 · hash:72873be43dc2
+- 2026-11-19 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @434db609 · hash:0e16ce1e376e
+- 2026-11-19 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @434db609 · hash:45b03be0510d
+- 2026-11-19 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/blueprint/tianxi-racing-blueprint-2026-10-13.md @434db609 · hash:e51db4e0f1f5
 
 ## 矛盾
 
