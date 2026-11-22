@@ -1,0 +1,19 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-22 7d27afda Owner-approved 鎖後補建 for a blocked freeze (2026-11-22 ST) (#162)\n2026-11-22 1131c05d Treat HKJC SCR WIN odds as no price on race-day companion boards (#161)\n2026-11-22 ac45b52d Treat HKJC 沒有資料 exceptional-factor races as official empty (#160)\n2026-11-22 040cc854 Stop withdrawn runners from blocking the freeze; fix racecard, Wave5, D1 lock and TG failures (#159)",
+    "content_hash": "79dde767662b06e9",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-23T06:39:45+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
