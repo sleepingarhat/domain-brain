@@ -1,0 +1,19 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-25 3aa6a261 Fix official P2 favourites footer so one table quirk does not abort the job (#167)\n2026-11-24 019de259 Official pre-race, post-race, and automatic point-in-time snapshots (#166)\n2026-11-24 4e5e5aca Store the remaining official HKJC page tables (#165)\n2026-11-24 0f45ffa3 賽日附屬資料：場地狀況或跑道未公布時照收，拒收時記錄頁面字句 (#164)",
+    "content_hash": "4d403386e90170c0",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-25T21:47:06+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
