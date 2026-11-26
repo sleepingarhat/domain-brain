@@ -26,9 +26,6 @@ layer: knowledge
 ## 觀察
 
 （較早 2 條觀察已截斷，矛盾區保留）
-- 2026-11-09 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:54686de8bf24
-- 2026-11-09 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:9b8845f58482
-- 2026-11-10 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:d6af3adf9a38
 - 2026-11-10 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:ca46b9655120
 - 2026-11-10 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/MODEL.md @466a89ee · hash:a92e326bc183
 - 2026-11-10 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/ELO.md @466a89ee · hash:ad24a91e9d51
@@ -66,6 +63,9 @@ layer: knowledge
 - 2026-11-25 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:0b47b8d8ef3e
 - 2026-11-25 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:b3b764a7bf73
 - 2026-11-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:9da9594844a1
+- 2026-11-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-racing/(git log) · hash:dc9c7f0390ff
+- 2026-11-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/docs/frozen-racing-api.md @a19cef6b · hash:21e8388830a6
+- 2026-11-26 · tianxi-repos · 文件  — 文件更新 sleepingarhat/tianxi-web/(git log) · hash:d2d34e74628c
 
 ## 矛盾
 
