@@ -1,0 +1,36 @@
+[
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-racing:recent-commits",
+    "content": "2026-11-26 23747062 Add an HTTP-only free pager for the official T-90 freeze workflow\n2026-11-26 5dd9690f Arm official T-90 freeze capture so the window actually writes kind=freeze (#170)\n2026-11-26 d97fc53a Join First Wish rows by brand, not saddle number (#169)",
+    "content_hash": "add34dfbc8ea570f",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-racing",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-racing/commits/main",
+      "fetched_at": "2026-11-27T09:05:48+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  },
+  {
+    "source_id": "tianxi-repos",
+    "title": "sleepingarhat/tianxi-web:recent-commits",
+    "content": "2026-11-26 36ee4141 Attach First Wish racecard notes to the official runner (#40)\n2026-11-26 58ae8929 Keep race-day freeze checks stable when the D1 gateway is throttled (#39)\n2026-11-24 f44f7ad4 Fetch HKJC evidence bodies only for the pending archive row (#38)\n2026-11-24 0b868706 Dedupe official-evidence warehouse-sync alerts and harden GitHub writes (#37)\n2026-11-24 89b93fab Show collected HKJC official records beyond the boards page (#36)\n2026-11-24 f96a8be8 Show single-race cancellations and dead-heat placings (#35)\n2026-11-11 051eddc8 sync: 發布賽日頁同官方資料頁排版精修（unslop）\n2026-11-10 7f37201b Show official boards and racecard overweight cells (#33)\n2026-11-10 2a781c8a Show official form cells on declared racecards (#32)\n2026-11-10 1c2e0945 Align homepage title with 香港賽馬 AI 預測 (#31)\n2026-11-10 26530c11 fix: show entries days apart from declared racecards (#30)\n2026-11-10 78ae786a fix: schedule loading count and production dependency advisories (#29)\n2026-11-09 026b7c92 sync: 開發日誌（全登記掃描回查、開跑時間保留）\n2026-11-09 59103afa sync: 前端倉覆核（略過型別檢查暫存檔）\n2026-11-03 2851c544 docs: roadmap 標明排版第二輪已上線\n2026-11-03 774a6170 sync: 全站排版第二輪上線（公開頁面細字統一放大）\n2026-10-29 b3f418c2 docs: 核實官方馬匹收料覆蓋缺口\n2026-10-29 b362023e fix: 分層對帳完整紀錄快讀及返回導航\n2026-10-29 353951f1 perf: 完賽賽日直接核實原副本，移除慢即時預測等待（未發布）\n2026-10-27 a35f5de9 feat(lab): 馬騎練比較 UI＋下架場地天氣 (#28)\n2026-10-27 da77ae0d Today race-day copy and dashboard data fixes (#27)\n2026-10-27 d271ac84 Rename lab surface from 研究室 to 功能 (#26)\n2026-10-27 65c5de82 fix(ui): Phase 1 TxCta Gold/Deep/Outline + primary→deep (#20)\n2026-10-27 82f81cd0 feat(lab): A–D UX lock — copy, weights, going lists, h2h compare (#25)\n2026-10-27 636a32ae chore(lab): decommission 走位節奏 + 彩池優化器 (#24)\n2026-10-27 63b50b04 fix(lab): parent route renders Outlet; wall moved to lab.index (verified with real session)\n2026-10-27 5a907280 fix(lab): Outlet layout so /lab child tool pages render\n2026-10-27 740a2b9d chore(lab): decommission 自訂回測 + 策略比較器 (#22)\n2026-10-27 8f349005 Synced main PR #21 lab-backtest nav\n2026-10-27 070b2f73 fix(lab): /lab/backtest nav + demo Callout, hide fake ROI (#21)",
+    "content_hash": "524c4e9862baad52",
+    "metadata": {
+      "kind": "repo_doc",
+      "repo": "sleepingarhat/tianxi-web",
+      "path": "(git log)",
+      "url": "https://github.com/sleepingarhat/tianxi-web/commits/main",
+      "fetched_at": "2026-11-27T09:05:48+08:00",
+      "domain_tags": [
+        "tianxi",
+        "dev-history"
+      ]
+    }
+  }
+]
